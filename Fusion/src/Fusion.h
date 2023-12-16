@@ -2,6 +2,7 @@
 
 // For use by Fusion Apps
 
-#include "Fusion/Application.h"
+#include "fusion/application.h"
+#include "fusion/log.h"
 
-#include "Fusion/EntryPoint.h"
+#include "fusion/entrypoint.h"

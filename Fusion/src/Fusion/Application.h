@@ -1,19 +1,19 @@
 #pragma once
 
-#include "Core.h"
+#include "core.h"
 
-namespace Fusion {
+namespace fusion {
 
-	class FUSION_API Application
+	class FUSION_API application
 	{
 	public:
-		Application();
-		virtual ~Application();
+		application();
+		virtual ~application();
 
-		void Run();
+		void run();
 	};
 
-	Application* CreateApplication();
+	application* create_application();
 
 }
 

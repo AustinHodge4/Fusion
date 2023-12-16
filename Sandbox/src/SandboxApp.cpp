@@ -1,20 +1,20 @@
-#include <Fusion.h>
+#include <fusion.h>
 
-class Sandbox : public Fusion::Application
+class sandbox : public fusion::application
 {
 public:
-	Sandbox()
+	sandbox()
 	{
 	
 	}
 
-	~Sandbox()
+	~sandbox()
 	{
 
 	}
 };
 
-Fusion::Application* Fusion::CreateApplication() 
+fusion::application* fusion::create_application() 
 {
-	return new Sandbox();
+	return new sandbox();
 }

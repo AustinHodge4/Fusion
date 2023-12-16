@@ -1,14 +1,14 @@
-#include "Application.h"
-namespace Fusion {
-	Application::Application()
+#include "application.h"
+namespace fusion {
+	application::application()
 	{
 	}
 
-	Application::~Application()
+	application::~application()
 	{
 	}
 
-	void Application::Run()
+	void application::run()
 	{
 		while (true);
 	}
