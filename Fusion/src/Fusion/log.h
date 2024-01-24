@@ -23,11 +23,11 @@ namespace fusion {
 #define FE_CORE_INFO(...) ::fusion::Log::get_core_logger()->info(__VA_ARGS__)
 #define FE_CORE_WARN(...) ::fusion::Log::get_core_logger()->warn(__VA_ARGS__)
 #define FE_CORE_ERROR(...) ::fusion::Log::get_core_logger()->error(__VA_ARGS__)
-#define FE_CORE_FATAL(...) ::fusion::Log::get_core_logger()->fatal(__VA_ARGS__)
+#define FE_CORE_FATAL(...) ::fusion::Log::get_core_logger()->critical(__VA_ARGS__)
 
 // client log macros
 #define FE_TRACE(...) ::fusion::Log::get_client_logger()->trace(__VA_ARGS__)
 #define FE_INFO(...) ::fusion::Log::get_client_logger()->info(__VA_ARGS__)
 #define FE_WARN(...) ::fusion::Log::get_client_logger()->warn(__VA_ARGS__)
 #define FE_ERROR(...) ::fusion::Log::get_client_logger()->error(__VA_ARGS__)
-#define FE_FATAL(...) ::fusion::Log::get_client_logger()->fatal(__VA_ARGS__)
+#define FE_FATAL(...) ::fusion::Log::get_client_logger()->critical(__VA_ARGS__)
