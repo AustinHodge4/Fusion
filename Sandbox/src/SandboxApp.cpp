@@ -1,6 +1,6 @@
 #include <fusion.h>
 
-class sandbox : public fusion::application
+class sandbox : public fusion::Application
 {
 public:
 	sandbox()
@@ -14,7 +14,7 @@ public:
 	}
 };
 
-fusion::application* fusion::create_application() 
+fusion::Application* fusion::create_application() 
 {
 	return new sandbox();
 }

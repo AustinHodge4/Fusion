@@ -1,19 +1,25 @@
 #pragma once
 
 #include "core.h"
+#include "events/event.h"
+
+#include "window.h"
 
 namespace fusion {
 
-	class FUSION_API application
+	class FUSION_API Application
 	{
 	public:
-		application();
-		virtual ~application();
+		Application();
+		virtual ~Application();
 
 		void run();
+	private:
+		std::unique_ptr<Window> _window;
+		bool _running = true;
 	};
 
-	application* create_application();
+	Application* create_application();
 
 }
 

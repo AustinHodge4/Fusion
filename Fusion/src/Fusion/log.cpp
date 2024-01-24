@@ -1,11 +1,12 @@
-#include "Log.h"
+#include "fepch.h"
+
 #include "spdlog/sinks/stdout_color_sinks.h"
 
 namespace fusion {
-	std::shared_ptr<spdlog::logger> log::_core_logger;
-	std::shared_ptr<spdlog::logger> log::_client_logger;
+	std::shared_ptr<spdlog::logger> Log::_core_logger;
+	std::shared_ptr<spdlog::logger> Log::_client_logger;
 
-	void log::init()
+	void Log::init()
 	{
 		spdlog::set_pattern("%^[%T] %n: %v%$");
 		_core_logger = spdlog::stdout_color_mt("Fusion");

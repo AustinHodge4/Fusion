@@ -7,5 +7,10 @@
 **.csproj
 
 ## Builds
-bin/
+**/bin/
 bin-int/
+Intermediates/
+
+## Logging
+*.log
+

@@ -11,6 +11,11 @@ workspace "Fusion"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+IncludeDir = {}
+IncludeDir["glfw"] = "Fusion/vendor/glfw/include"
+
+include "Fusion/vendor/glfw"
+
 project "Fusion"
     location "Fusion"
     kind "SharedLib"
@@ -18,6 +23,9 @@ project "Fusion"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+    pchheader "fepch.h"
+    pchsource "Fusion/src/fepch.cpp"
 
     files 
     {
@@ -27,7 +35,15 @@ project "Fusion"
 
     includedirs
     {
-        "%{prj.name}/vendor/spdlog/include"
+        "%{prj.name}/src",
+        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.glfw}"
+    }
+
+    links
+    {
+        "glfw",
+        "opengl32.lib"
     }
 
     filter "system:windows"
