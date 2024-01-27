@@ -5,6 +5,8 @@
 #include "fusion/events/key_event.h"
 #include "fusion/events/mouse_event.h"
 
+#include <glad/glad.h>
+
 namespace fusion {
 
 	static bool _glfw_initialized = false;
@@ -47,6 +49,10 @@ namespace fusion {
 
 		_window = glfwCreateWindow((int)props.width, (int)props.height, _data.title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(_window);
+
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		FE_CORE_ASSERT(status, "Failed to init glad!");
+
 		glfwSetWindowUserPointer(_window, &_data);
 		set_vsync(true);
 

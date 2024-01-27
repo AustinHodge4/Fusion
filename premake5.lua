@@ -13,8 +13,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["glfw"] = "Fusion/vendor/glfw/include"
+IncludeDir["glad"] = "Fusion/vendor/glad/include"
 
 include "Fusion/vendor/glfw"
+include "Fusion/vendor/glad"
 
 project "Fusion"
     location "Fusion"
@@ -37,12 +39,14 @@ project "Fusion"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.glfw}"
+        "%{IncludeDir.glfw}",
+        "%{IncludeDir.glad}"
     }
 
     links
     {
         "glfw",
+        "glad",
         "opengl32.lib"
     }
 
@@ -54,7 +58,8 @@ project "Fusion"
         defines 
         {
             "FE_PLATFORM_WINDOWS",
-            "FE_BUILD_DLL"
+            "FE_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
         }
 
         postbuildcommands
@@ -64,14 +69,17 @@ project "Fusion"
     
     filter "configurations:Debug"
         defines "FE_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
     
     filter "configurations:Release"
         defines "FE_RELEASE"
+        buildoptions "/MD"
         symbols "On"
     
     filter "configurations:Dist"
         defines "FE_DIST"
+        buildoptions "/MD"
         symbols "On"
 
     
@@ -113,12 +121,15 @@ project "Sandbox"
     
     filter "configurations:Debug"
         defines "FE_DEBUG"
+        buildoptions "/MDd"
         symbols "On"
     
     filter "configurations:Release"
         defines "FE_RELEASE"
+        buildoptions "/MD"
         symbols "On"
     
     filter "configurations:Dist"
         defines "FE_DIST"
+        buildoptions "/MD"
         symbols "On"
