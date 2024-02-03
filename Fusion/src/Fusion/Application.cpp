@@ -7,6 +7,9 @@ namespace fusion {
 
 	Application::Application()
 	{
+		FE_CORE_ASSERT(!_instance, "Application already exists!");
+		_instance = this;
+
 		_window = std::unique_ptr<Window>(Window::create());
 		_window->set_event_callback(FE_BIND_EVENT_FN(Application::on_event));
 
@@ -16,16 +19,19 @@ namespace fusion {
 
 	Application::~Application()
 	{
+		
 	}
 
 	void Application::push_layer(Layer* layer)
 	{
 		_layer_stack.push_layer(layer);
+		layer->on_attach();
 	}
 
 	void Application::push_overlay(Layer* layer)
 	{
 		_layer_stack.push_overlay(layer);
+		layer->on_attach();
 	}
 
 	void Application::run()

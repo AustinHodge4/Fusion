@@ -4,3 +4,6 @@
 [submodule "fusion/vendor/glfw"]
 	path = fusion/vendor/glfw
 	url = https://github.com/AustinHodge4/glfw.git
+[submodule "fusion/vendor/imgui"]
+	path = fusion/vendor/imgui
+	url = https://github.com/AustinHodge4/imgui.git

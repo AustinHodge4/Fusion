@@ -107,6 +107,16 @@ namespace fusion {
 			}
 		);
 
+		glfwSetCharCallback(_window,
+			[](GLFWwindow* window, unsigned int keycode)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				KeyTypedEvent event(keycode);
+				data.event_callback(event);
+			}
+		);
+
 		glfwSetMouseButtonCallback(_window,
 			[](GLFWwindow* window, int button, int action, int mods)
 			{

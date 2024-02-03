@@ -1,6 +1,6 @@
 #pragma once
 
-#include "fusion/core.h"
+#include "core.h"
 #include "layer.h"
 
 #include <vector>

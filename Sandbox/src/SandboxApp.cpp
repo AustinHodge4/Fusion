@@ -7,24 +7,25 @@ public:
 
 	void on_update() override
 	{
-		FE_INFO("ExampleLayer::Update");
+		//FE_INFO("ExampleLayer::Update");
 	}
 
 	void on_event(fusion::Event& e) override
 	{
-		FE_TRACE("{0}", e);
+		//FE_TRACE("{0}", e);
 	}
 };
 
-class sandbox : public fusion::Application
+class Sandbox : public fusion::Application
 {
 public:
-	sandbox()
+	Sandbox()
 	{
 		push_layer(new ExampleLayer());
+		push_overlay(new fusion::ImGUILayer());
 	}
 
-	~sandbox()
+	~Sandbox()
 	{
 
 	}
@@ -32,5 +33,5 @@ public:
 
 fusion::Application* fusion::create_application() 
 {
-	return new sandbox();
+	return new Sandbox();
 }
