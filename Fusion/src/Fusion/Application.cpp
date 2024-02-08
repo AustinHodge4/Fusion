@@ -14,9 +14,6 @@ namespace fusion {
 		_window = std::unique_ptr<Window>(Window::create());
 		_window->set_event_callback(FE_BIND_EVENT_FN(Application::on_event));
 
-		FE_CORE_INFO("Initializing Input Keys...");
-		Key::initialize();
-
 		unsigned int id;
 		glGenVertexArrays(1, &id);
 	}

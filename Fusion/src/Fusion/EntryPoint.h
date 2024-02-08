@@ -10,6 +10,9 @@ int main(int argc, char** argv)
 	FE_CORE_TRACE("Init Log!");
 	FE_INFO("Hello, Var={0}", 2);
 
+	FE_CORE_INFO("Initializing Input Keys...");
+	fusion::Key::initialize();
+
 	auto app = fusion::create_application();
 	app->run();
 	delete app;
