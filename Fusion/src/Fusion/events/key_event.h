@@ -2,12 +2,16 @@
 
 #include "event.h"
 
+#include "fusion/input.h"
+#include "fusion/input/virtual_key.h"
+
 namespace fusion {
 
 	class FUSION_API KeyEvent : public Event
 	{
 	public:
 		inline int get_keycode() const { return _keycode; }
+		inline VirtualKey get_key() const { return Input::get_key_from_codes(_keycode); }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:

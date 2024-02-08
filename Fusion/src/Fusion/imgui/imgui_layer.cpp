@@ -86,7 +86,7 @@ namespace fusion {
 
 	void ImGUILayer::on_event(Event& e)
 	{
-		FE_CORE_INFO("imgui {0}", e);
+		//FE_CORE_INFO("imgui {0}", e);
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(FE_BIND_EVENT_FN(on_mouse_scrolled_event));

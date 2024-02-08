@@ -11,14 +11,16 @@ namespace fusion {
 		WindowsWindow(const WindowProps& props);
 		virtual ~WindowsWindow();
 
-		void on_update() override;
+		virtual void on_update() override;
 
-		inline unsigned int get_width() const override { return _data.width; }
-		inline unsigned int get_height() const override { return _data.height; }
+		inline virtual unsigned int get_width() const override { return _data.width; }
+		inline virtual unsigned int get_height() const override { return _data.height; }
 
-		inline void set_event_callback(const EventCallbackFn& callback) override { _data.event_callback = callback; }
-		void set_vsync(bool enabled) override;
-		bool is_vsync() const override;
+		inline virtual void set_event_callback(const EventCallbackFn& callback) override { _data.event_callback = callback; }
+		virtual void set_vsync(bool enabled) override;
+		virtual bool is_vsync() const override;
+
+		inline virtual void* get_native_window() const override { return _window; }
 
 	private:
 		virtual void init(const WindowProps& props);

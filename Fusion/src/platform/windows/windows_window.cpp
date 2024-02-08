@@ -188,5 +188,4 @@ namespace fusion {
 	{
 		return _data.vsync;
 	}
-
 }
