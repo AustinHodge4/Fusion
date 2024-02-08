@@ -7,3 +7,6 @@
 [submodule "fusion/vendor/imgui"]
 	path = fusion/vendor/imgui
 	url = https://github.com/AustinHodge4/imgui.git
+[submodule "fusion/vendor/glm"]
+	path = fusion/vendor/glm
+	url = https://github.com/g-truc/glm.git
