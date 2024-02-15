@@ -5,19 +5,22 @@ namespace fusion {
 
 	LayerStack::LayerStack()
 	{
-		_layer_insert = _layers.begin();
+		
 	}
 
 	LayerStack::~LayerStack()
 	{
 		for (Layer* layer : _layers)
+		{
+			layer->on_detach();
 			delete layer;
+		}
 	}
 
 	void LayerStack::push_layer(Layer* layer)
 	{
-		_layer_insert = _layers.emplace(_layer_insert, layer);
-		_layer_insert++;
+		_layers.emplace(_layers.begin() + _layer_insert_index, layer);
+		_layer_insert_index++;
 	}
 
 	void LayerStack::push_overlay(Layer* layer)
@@ -30,8 +33,9 @@ namespace fusion {
 		auto it = std::find(_layers.begin(), _layers.end(), layer);
 		if (it != _layers.end())
 		{
+			layer->on_detach();
 			_layers.erase(it);
-			_layer_insert--;
+			_layer_insert_index--;
 		}
 	}
 
@@ -40,6 +44,7 @@ namespace fusion {
 		auto it = std::find(_layers.begin(), _layers.end(), layer);
 		if (it != _layers.end()) 
 		{
+			layer->on_detach();
 			_layers.erase(it);
 		}
 	}

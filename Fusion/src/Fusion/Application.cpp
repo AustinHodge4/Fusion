@@ -14,8 +14,8 @@ namespace fusion {
 		_window = std::unique_ptr<Window>(Window::create());
 		_window->set_event_callback(FE_BIND_EVENT_FN(Application::on_event));
 
-		unsigned int id;
-		glGenVertexArrays(1, &id);
+		_imgui_layer = new ImGUILayer();
+		push_overlay(_imgui_layer);
 	}
 
 	Application::~Application()
@@ -47,8 +47,12 @@ namespace fusion {
 				layer->on_update();
 			}
 
-			auto [x, y] = Input::get_mouse_pos();
-			//FE_CORE_TRACE("{0}, {1}", x, y);
+			_imgui_layer->begin();
+			for (Layer* layer : _layer_stack)
+			{
+				layer->on_imgui_render();
+			}
+			_imgui_layer->end();
 
 			_window->on_update();
 		}
@@ -63,9 +67,9 @@ namespace fusion {
 
 		for (auto it = _layer_stack.end(); it != _layer_stack.begin();)
 		{
-			(*--it)->on_event(e);
 			if (e.handled)
 				break;
+			(*--it)->on_event(e);
 		}
 	}
 

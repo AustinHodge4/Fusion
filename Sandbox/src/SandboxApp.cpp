@@ -1,5 +1,7 @@
 #include <fusion.h>
 
+#include <imgui.h>
+
 class ExampleLayer : public fusion::Layer
 {
 public:
@@ -12,6 +14,13 @@ public:
 			FE_TRACE("Pressed W key (poll)");
 		}
 		
+	}
+
+	void on_imgui_render() override
+	{
+		ImGui::Begin("test");
+		ImGui::Text("Hello world :)");
+		ImGui::End();
 	}
 
 	void on_event(fusion::Event& e) override
@@ -32,7 +41,6 @@ public:
 	Sandbox()
 	{
 		push_layer(new ExampleLayer());
-		push_overlay(new fusion::ImGUILayer());
 	}
 
 	~Sandbox()

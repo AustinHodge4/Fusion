@@ -4,6 +4,7 @@
 
 #include "window.h"
 #include "fusion/layer_stack.h"
+#include "fusion/imgui/imgui_layer.h"
 
 #include "fusion/events/event.h"
 #include "fusion/events/application_event.h"
@@ -30,6 +31,8 @@ namespace fusion {
 		bool on_window_closed(WindowCloseEvent& e);
 	private:
 		std::unique_ptr<Window> _window;
+		ImGUILayer* _imgui_layer;
+
 		bool _running = true;
 		LayerStack _layer_stack;
 

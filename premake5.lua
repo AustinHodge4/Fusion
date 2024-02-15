@@ -112,6 +112,7 @@ project "Sandbox"
     {
         "Fusion/vendor/spdlog/include",
         "Fusion/src",
+        "%{IncludeDir.imgui}",
         "%{IncludeDir.glm}"
     }
 
