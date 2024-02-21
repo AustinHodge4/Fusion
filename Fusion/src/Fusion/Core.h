@@ -1,11 +1,15 @@
 #pragma once
 
 #ifdef FE_PLATFORM_WINDOWS
+#if FE_DYNAMIC_LINK
 	#ifdef FE_BUILD_DLL
 		#define FUSION_API __declspec(dllexport)
 	#else
 		#define FUSION_API __declspec(dllimport)
 	#endif
+#else
+	#define FUSION_API 
+#endif
 #else
 	#error Fusion only supports Windows!
 #endif

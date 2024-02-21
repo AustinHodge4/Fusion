@@ -38,7 +38,7 @@ namespace fusion {
 
 		_key_map.clear();
 
-		for (int i = 0; i < count; i++)
+		for (unsigned int i = 0; i < count; i++)
 		{
 			VirtualKey key(key_names[i]);
 

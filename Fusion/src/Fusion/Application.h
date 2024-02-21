@@ -3,11 +3,13 @@
 #include "core.h"
 
 #include "window.h"
-#include "fusion/layer_stack.h"
-#include "fusion/imgui/imgui_layer.h"
 
 #include "fusion/events/event.h"
 #include "fusion/events/application_event.h"
+
+#include "fusion/layer_stack.h"
+#include "imgui/imgui_layer.h"
+
 
 namespace fusion {
 
