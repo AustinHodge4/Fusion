@@ -2,7 +2,7 @@
 
 #include "event.h"
 
-#include "fusion/input.h"
+#include "fusion/input/input.h"
 #include "fusion/input/virtual_key.h"
 
 namespace fusion {

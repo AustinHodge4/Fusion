@@ -5,7 +5,7 @@
 #include "fusion/events/key_event.h"
 #include "fusion/events/mouse_event.h"
 
-#include <glad/glad.h>
+#include "platform/opengl/opengl_context.h"
 
 namespace fusion {
 
@@ -48,10 +48,9 @@ namespace fusion {
 		}
 
 		_window = glfwCreateWindow((int)props.width, (int)props.height, _data.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(_window);
 
-		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-		FE_CORE_ASSERT(status, "Failed to init glad!");
+		_context = new OpenGLContext(_window);
+		_context->init();
 
 		glfwSetWindowUserPointer(_window, &_data);
 		set_vsync(true);
@@ -169,7 +168,7 @@ namespace fusion {
 	void WindowsWindow::on_update()
 	{
 		glfwPollEvents();
-		glfwSwapBuffers(_window);
+		_context->swap_buffers();
 	}
 
 	void WindowsWindow::set_vsync(bool enabled)

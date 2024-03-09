@@ -4,10 +4,10 @@
 
 #include "window.h"
 
-#include "fusion/events/event.h"
-#include "fusion/events/application_event.h"
+#include "events/event.h"
+#include "events/application_event.h"
 
-#include "fusion/layer_stack.h"
+#include "layer_stack.h"
 #include "imgui/imgui_layer.h"
 
 
@@ -32,13 +32,15 @@ namespace fusion {
 	private:
 		bool on_window_closed(WindowCloseEvent& e);
 	private:
+		inline static Application* _instance;
+
 		std::unique_ptr<Window> _window;
 		ImGUILayer* _imgui_layer;
 
 		bool _running = true;
 		LayerStack _layer_stack;
 
-		inline static Application* _instance;
+		unsigned int _vertexArray, _vertexBuffer, _indexBuffer;
 	};
 
 	Application* create_application();

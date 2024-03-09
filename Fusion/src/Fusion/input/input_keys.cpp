@@ -1,7 +1,7 @@
 #include "fepch.h"
 #include "input_keys.h"
 
-#include "fusion/input.h"
+#include "input.h"
 #include "platform/platform_input_manager.h"
 
 namespace fusion {

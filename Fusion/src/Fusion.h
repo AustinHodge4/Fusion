@@ -5,7 +5,7 @@
 #include "fusion/layer.h"
 #include "fusion/log.h"
 
-#include "fusion/input.h"
+#include "fusion/input/input.h"
 #include "fusion/input/input_keys.h"
 
 #include "fusion/imgui/imgui_layer.h"

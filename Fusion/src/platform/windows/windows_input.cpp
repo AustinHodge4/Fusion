@@ -2,7 +2,7 @@
 #include "windows_input.h"
 
 #include "fusion/application.h"
-#include "fusion/input.h"
+#include "fusion/input/input.h"
 
 #include <GLFW/glfw3.h>
 

@@ -2,7 +2,7 @@
 
 #include "fusion/core.h"
 
-#include "fusion/input/input_keys.h"
+#include "input_keys.h"
 #include "platform/platform_input_manager.h"
 
 namespace fusion {

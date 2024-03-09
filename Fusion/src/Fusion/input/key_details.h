@@ -1,7 +1,7 @@
 #pragma once
 
 #include "fusion/core.h"
-#include "fusion/input/virtual_key.h"
+#include "virtual_key.h"
 
 namespace fusion {
 

@@ -3,8 +3,6 @@
 #include "core.h"
 #include "layer.h"
 
-#include <vector>
-
 namespace fusion {
 
 	class FUSION_API LayerStack

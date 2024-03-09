@@ -2,6 +2,8 @@
 
 #include "fusion/window.h"
 
+#include "fusion/renderer/graphics_context.h"
+
 #include <GLFW/glfw3.h>
 
 namespace fusion {
@@ -27,6 +29,7 @@ namespace fusion {
 		virtual void shutdown();
 	private:
 		GLFWwindow* _window;
+		GraphicsContext* _context;
 
 		struct WindowData
 		{

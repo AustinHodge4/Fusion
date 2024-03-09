@@ -2,8 +2,8 @@
 
 #include "fepch.h"
 
-#include "fusion/core.h"
-#include "fusion/events/event.h"
+#include "core.h"
+#include "events/event.h"
 
 namespace fusion {
 
