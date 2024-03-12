@@ -11,7 +11,7 @@ namespace fusion {
 	{
 	public:
 		inline int get_keycode() const { return _keycode; }
-		inline VirtualKey get_key() const { return Input::get_key_from_codes(_keycode); }
+		inline const VirtualKey& get_key() const { return Input::get_key_from_codes(_keycode); }
 
 		EVENT_CLASS_CATEGORY(EventCategoryKeyboard | EventCategoryInput)
 	protected:

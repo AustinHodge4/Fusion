@@ -302,7 +302,7 @@ namespace fusion {
 		_input_keys.insert({ key, key._key_details});
 	}
 
-	std::shared_ptr<KeyDetails> Key::get_key_details(const VirtualKey key)
+	const std::shared_ptr<KeyDetails>& Key::get_key_details(const VirtualKey key)
 	{
 		auto entry = _input_keys.find(key);
 		if (entry == _input_keys.end())

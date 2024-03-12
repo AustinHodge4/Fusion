@@ -8,13 +8,13 @@
 
 namespace fusion {
 
-	bool WindowsInput::is_key_pressed_impl(VirtualKey keycode)
+	bool WindowsInput::is_key_pressed_impl(const VirtualKey& keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
 		auto state = glfwGetKey(window, Input::get_codes_from_key(keycode));
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
-	bool WindowsInput::is_mouse_button_pressed_impl(VirtualKey button)
+	bool WindowsInput::is_mouse_button_pressed_impl(const VirtualKey& button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
 		auto state = glfwGetMouseButton(window, Input::get_codes_from_key(button));

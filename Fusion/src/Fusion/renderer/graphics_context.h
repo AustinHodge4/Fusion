@@ -7,5 +7,7 @@ namespace fusion {
 	public:
 		virtual void init() = 0;
 		virtual void swap_buffers() = 0;
+
+		static GraphicsContext* create(void* window);
 	};
 }

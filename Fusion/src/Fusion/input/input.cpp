@@ -7,7 +7,7 @@ namespace fusion {
 
 	std::unordered_map<int, VirtualKey> Input::_key_map;
 
-	VirtualKey Input::get_key_from_codes(const int keycode)
+	const VirtualKey& Input::get_key_from_codes(const int keycode)
 	{
 		auto entry = _key_map.find(keycode);
 		if (entry == _key_map.end()) {
@@ -18,7 +18,7 @@ namespace fusion {
 		return entry->second;
 	}
 
-	int Input::get_codes_from_key(const VirtualKey key)
+	int Input::get_codes_from_key(const VirtualKey& key)
 	{
 		auto entry = std::find_if(_key_map.begin(), _key_map.end(), [key](auto& pair) { return pair.second == key; });
 		if (entry == _key_map.end()) {

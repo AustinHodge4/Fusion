@@ -20,17 +20,17 @@ namespace fusion {
 			NoFlags = 0,
 		};
 
-		KeyDetails(const VirtualKey input_key, const std::string display_name, const unsigned int key_flags = 0);
+		KeyDetails(const VirtualKey input_key, const std::string display_name, const uint32_t key_flags = 0);
 
 	public:
 		VirtualKey& get_key() { return _input_key; }
-		const std::string get_display_name() const { return _display_name; }
+		const std::string& get_display_name() const { return _display_name; }
 
 		inline const bool is_gamepad_key() const { return _is_gamepad; }
 		inline const bool is_modifier_key() const { return _is_modifier; }
 		inline const bool is_mouse_button() const { return _is_mouse_button; }
 	private:
-		void initialize(const unsigned int key_flags = 0);
+		void initialize(const uint32_t key_flags = 0);
 
 		VirtualKey _input_key;
 		std::string _display_name;

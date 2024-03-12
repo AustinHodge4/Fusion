@@ -154,7 +154,7 @@ namespace fusion {
 		static void initialize();
 		static void add_key(KeyDetails& key_details);
 
-		static std::shared_ptr<KeyDetails> get_key_details(const VirtualKey key);
+		static const std::shared_ptr<KeyDetails>& get_key_details(const VirtualKey key);
 
 	private:
 		static bool _initialized;

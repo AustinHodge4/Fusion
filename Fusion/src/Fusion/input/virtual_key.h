@@ -19,7 +19,7 @@ namespace fusion {
 
 		inline const std::string get_name() const { return _name; }
 
-		inline bool operator==(const VirtualKey& x) { return this->_name == x._name; }
+		inline bool operator==(const VirtualKey& x) const { return this->_name == x._name; }
 		inline bool operator!=(const VirtualKey& x) { return this->_name != x._name; }
 		inline bool operator<(const VirtualKey& x) const { return this->_name.compare(x._name) < 0; }
 

@@ -49,7 +49,7 @@ namespace fusion {
 
 		_window = glfwCreateWindow((int)props.width, (int)props.height, _data.title.c_str(), nullptr, nullptr);
 
-		_context = new OpenGLContext(_window);
+		_context = GraphicsContext::create(_window);
 		_context->init();
 
 		glfwSetWindowUserPointer(_window, &_data);

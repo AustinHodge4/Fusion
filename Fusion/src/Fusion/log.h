@@ -10,8 +10,8 @@ namespace fusion {
 	public:
 		static void init();
 
-		inline static std::shared_ptr<spdlog::logger>& get_core_logger() { return _core_logger; }
-		inline static std::shared_ptr<spdlog::logger>& get_client_logger() { return _client_logger; }
+		inline static const std::shared_ptr<spdlog::logger>& get_core_logger() { return _core_logger; }
+		inline static const std::shared_ptr<spdlog::logger>& get_client_logger() { return _client_logger; }
 	private:
 		static std::shared_ptr<spdlog::logger> _core_logger;
 		static std::shared_ptr<spdlog::logger> _client_logger;

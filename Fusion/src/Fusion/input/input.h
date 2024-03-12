@@ -16,14 +16,14 @@ namespace fusion {
 		friend Key;
 		friend KeyEvent;
 
-		inline static bool is_key_pressed(VirtualKey keycode) { return PlatformInput::is_key_pressed_impl(keycode); }
-		inline static bool is_mouse_button_pressed(VirtualKey button) { return PlatformInput::is_mouse_button_pressed_impl(button); }
+		inline static bool is_key_pressed(const VirtualKey& keycode) { return PlatformInput::is_key_pressed_impl(keycode); }
+		inline static bool is_mouse_button_pressed(const VirtualKey& button) { return PlatformInput::is_mouse_button_pressed_impl(button); }
 		inline static float get_mouse_x() { return PlatformInput::get_mouse_x_impl(); }
 		inline static float get_mouse_y() { return PlatformInput::get_mouse_y_impl(); }
 		inline static std::pair<float, float> get_mouse_pos() { return PlatformInput::get_mouse_pos_impl(); }
 	protected:
-		static VirtualKey get_key_from_codes(const int keycode);
-		static int get_codes_from_key(const VirtualKey key);
+		static const VirtualKey& get_key_from_codes(const int keycode);
+		static int get_codes_from_key(const VirtualKey& key);
 
 		static void initialize_keys();
 
