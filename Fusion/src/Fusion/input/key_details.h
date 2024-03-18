@@ -20,7 +20,7 @@ namespace fusion {
 			NoFlags = 0,
 		};
 
-		KeyDetails(const VirtualKey input_key, const std::string display_name, const uint32_t key_flags = 0);
+		KeyDetails(const VirtualKey& input_key, const std::string& display_name, const uint32_t key_flags = 0);
 
 	public:
 		VirtualKey& get_key() { return _input_key; }

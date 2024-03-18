@@ -13,7 +13,7 @@ namespace fusion {
 		virtual void bind() const override;
 		virtual void unbind() const override;
 
-		virtual const std::string get_name() const override { return _name; }
+		virtual inline const std::string& get_name() const override { return _name; }
 	private:
 		uint32_t _renderer_id;
 		std::string _name;

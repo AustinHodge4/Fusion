@@ -11,9 +11,9 @@ namespace fusion {
 	{
 		switch (Renderer::get())
 		{
-			case RendererAPI::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
-			case RendererAPI::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
-			case RendererAPI::OpenGL: return new OpenGLShader(name, vertex_src, fragment_src);
+			case RendererAPI::API::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
+			case RendererAPI::API::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL: return new OpenGLShader(name, vertex_src, fragment_src);
 		}
 
 		FE_CORE_ASSERT(false, "Unknown Renderer API not supported!");

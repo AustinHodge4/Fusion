@@ -24,8 +24,6 @@ namespace fusion {
 			glVertexArrayVertexBuffer(vao, index, _renderer_id, 0, _layout.get_stride());
 			index++;
 		}
-
-		//glVertexArrayVertexBuffer(vao, 0, _renderer_id, 0, sizeof(float) * 3);
 	}
 
 	void OpenGLVertexBuffer::unbind(uint32_t vao) const

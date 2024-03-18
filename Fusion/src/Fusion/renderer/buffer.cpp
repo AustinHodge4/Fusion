@@ -11,9 +11,9 @@ namespace fusion {
 	{
 		switch (Renderer::get())
 		{
-			case RendererAPI::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
-			case RendererAPI::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
-			case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+			case RendererAPI::API::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
+			case RendererAPI::API::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
+			case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(vertices, size);
 		}
 
 		FE_CORE_ASSERT(false, "Unknown Renderer API not supported!");
@@ -24,9 +24,9 @@ namespace fusion {
 	{
 		switch (Renderer::get())
 		{
-		case RendererAPI::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
-		case RendererAPI::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
-		case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, size);
+		case RendererAPI::API::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
+		case RendererAPI::API::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
+		case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indices, size);
 		}
 
 		FE_CORE_ASSERT(false, "Unknown Renderer API not supported!");

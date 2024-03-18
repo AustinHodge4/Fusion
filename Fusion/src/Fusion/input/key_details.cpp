@@ -3,7 +3,7 @@
 
 namespace fusion {
 
-	KeyDetails::KeyDetails(const VirtualKey input_key, const std::string display_name, const uint32_t key_flags)
+	KeyDetails::KeyDetails(const VirtualKey& input_key, const std::string& display_name, const uint32_t key_flags)
 		: _input_key(input_key), _display_name(display_name)
 	{
 		initialize(key_flags);

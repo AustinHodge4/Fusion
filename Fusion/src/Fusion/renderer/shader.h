@@ -9,7 +9,7 @@ namespace fusion {
 
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
-		virtual const std::string get_name() const = 0;
+		virtual const std::string& get_name() const = 0;
 
 		static Shader* create(const std::string& name, const std::string& vertex_src, const std::string& fragment_src);
 	};

@@ -10,9 +10,6 @@
 #include "layer_stack.h"
 #include "imgui/imgui_layer.h"
 
-#include "renderer/shader.h"
-#include "renderer/buffer.h"
-
 namespace fusion {
 
 	class FUSION_API Application
@@ -41,11 +38,6 @@ namespace fusion {
 
 		bool _running = true;
 		LayerStack _layer_stack;
-
-		unsigned int _vertexArray;
-		std::unique_ptr<Shader> _shader;
-		std::unique_ptr<VertexBuffer> _vertexBuffer;
-		std::unique_ptr<IndexBuffer> _indexBuffer;
 	};
 
 	Application* create_application();
