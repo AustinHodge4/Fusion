@@ -1,7 +1,7 @@
 #include "fepch.h"
 #include "layer_stack.h"
 
-namespace fusion {
+namespace Fusion {
 
 	LayerStack::LayerStack()
 	{
@@ -12,39 +12,39 @@ namespace fusion {
 	{
 		for (Layer* layer : _layers)
 		{
-			layer->on_detach();
+			layer->OnDetach();
 			delete layer;
 		}
 	}
 
-	void LayerStack::push_layer(Layer* layer)
+	void LayerStack::PushLayer(Layer* p_layer)
 	{
-		_layers.emplace(_layers.begin() + _layer_insert_index, layer);
-		_layer_insert_index++;
+		_layers.emplace(_layers.begin() + _insertIndex, p_layer);
+		_insertIndex++;
 	}
 
-	void LayerStack::push_overlay(Layer* layer)
+	void LayerStack::PushOverlay(Layer* p_layer)
 	{
-		_layers.emplace_back(layer);
+		_layers.emplace_back(p_layer);
 	}
 
-	void LayerStack::pop_layer(Layer* layer)
+	void LayerStack::PopLayer(Layer* p_layer)
 	{
-		auto it = std::find(_layers.begin(), _layers.end(), layer);
+		auto it = std::find(_layers.begin(), _layers.end(), p_layer);
 		if (it != _layers.end())
 		{
-			layer->on_detach();
+			p_layer->OnDetach();
 			_layers.erase(it);
-			_layer_insert_index--;
+			_insertIndex--;
 		}
 	}
 
-	void LayerStack::pop_overlay(Layer* layer)
+	void LayerStack::PopOverlay(Layer* p_layer)
 	{
-		auto it = std::find(_layers.begin(), _layers.end(), layer);
+		auto it = std::find(_layers.begin(), _layers.end(), p_layer);
 		if (it != _layers.end()) 
 		{
-			layer->on_detach();
+			p_layer->OnDetach();
 			_layers.erase(it);
 		}
 	}

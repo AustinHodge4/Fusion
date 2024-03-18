@@ -3,20 +3,20 @@
 
 #include <glad/glad.h>
 
-namespace fusion {
+namespace Fusion {
 
-	void OpenGLRendererAPI::set_clear_color(const glm::vec4& color)
+	void OpenGLRendererAPI::SetClearColor(const glm::vec4& p_color)
 	{
-		glClearColor(color.r, color.g, color.b, color.a);
+		glClearColor(p_color.r, p_color.g, p_color.b, p_color.a);
 	}
 
-	void OpenGLRendererAPI::clear()
+	void OpenGLRendererAPI::Clear()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void OpenGLRendererAPI::draw_indexed(const std::shared_ptr<VertexArray>& vertex_array)
+	void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& p_vertexArray)
 	{
-		glDrawElements(GL_TRIANGLES, vertex_array->get_index_buffer()->get_count(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, p_vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 }

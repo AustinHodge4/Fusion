@@ -6,45 +6,45 @@
 
 #include <GLFW/glfw3.h>
 
-namespace fusion {
+namespace Fusion {
 
-	bool WindowsInput::is_key_pressed_impl(const VirtualKey& keycode)
+	bool WindowsInput::IsKeyPressedImpl(const VirtualKey& p_keycode)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
-		auto state = glfwGetKey(window, Input::get_codes_from_key(keycode));
+		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto state = glfwGetKey(window, Input::GetCodesFromKey(p_keycode));
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
-	bool WindowsInput::is_mouse_button_pressed_impl(const VirtualKey& button)
+	bool WindowsInput::IsMouseButtonPressedImpl(const VirtualKey& p_button)
 	{
-		auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
-		auto state = glfwGetMouseButton(window, Input::get_codes_from_key(button));
+		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto state = glfwGetMouseButton(window, Input::GetCodesFromKey(p_button));
 		return state == GLFW_PRESS;
 	}
-	std::pair<float, float> WindowsInput::get_mouse_pos_impl()
+	std::pair<float, float> WindowsInput::GetMousePosImpl()
 	{
-		auto window = static_cast<GLFWwindow*>(Application::get().get_window().get_native_window());
-		double xpos, ypos;
-		glfwGetCursorPos(window, &xpos, &ypos);
-		return { (float)xpos, (float)ypos };
+		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		double posX, posY;
+		glfwGetCursorPos(window, &posX, &posY);
+		return { (float)posX, (float)posY };
 	}
 
-	float WindowsInput::get_mouse_x_impl()
+	float WindowsInput::GetMouseXImpl()
 	{
-		auto [x, y] = get_mouse_pos_impl();
+		auto [x, y] = GetMousePosImpl();
 		return x;
 	}
 
-	float WindowsInput::get_mouse_y_impl()
+	float WindowsInput::GetMouseYImpl()
 	{
-		auto [x, y] = get_mouse_pos_impl();
+		auto [x, y] = GetMousePosImpl();
 		return y;
 	}
 
-	unsigned int WindowsInput::get_platform_keys(unsigned int* keycodes, std::string* key_names)
+	unsigned int WindowsInput::GetPlatformKeys(unsigned int* p_keycodes, std::string* p_keynames)
 	{
-	#define ADDKEY(code, name) if (number_of_mappings<256) { keycodes[number_of_mappings] = code; key_names[number_of_mappings] = name; ++number_of_mappings;};
+	#define ADDKEY(code, name) if (numberOfMappings<256) { p_keycodes[numberOfMappings] = code; p_keynames[numberOfMappings] = name; ++numberOfMappings;};
 		
-		unsigned int number_of_mappings = 0;
+		unsigned int numberOfMappings = 0;
 
 		ADDKEY(GLFW_MOUSE_BUTTON_LEFT, "LeftMouseButton");
 		ADDKEY(GLFW_MOUSE_BUTTON_RIGHT, "RightMouseButton");
@@ -167,6 +167,6 @@ namespace fusion {
 
 		FE_CORE_INFO("Added Windows platform keys...");
 
-		return number_of_mappings;
+		return numberOfMappings;
 	}
 }

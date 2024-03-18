@@ -5,28 +5,28 @@
 
 #include "platform/opengl/opengl_buffer.h"
 
-namespace fusion {
+namespace Fusion {
 
-	VertexBuffer* VertexBuffer::create(float* vertices, uint32_t size)
+	VertexBuffer* VertexBuffer::Create(float* p_vertices, uint32_t p_size)
 	{
-		switch (Renderer::get())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
 			case RendererAPI::API::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+			case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(p_vertices, p_size);
 		}
 
 		FE_CORE_ASSERT(false, "Unknown Renderer API not supported!");
 		return nullptr;
 	}
 
-	IndexBuffer* IndexBuffer::create(uint32_t* indices, uint32_t size)
+	IndexBuffer* IndexBuffer::Create(uint32_t* p_indices, uint32_t p_size)
 	{
-		switch (Renderer::get())
+		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
 		case RendererAPI::API::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indices, size);
+		case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(p_indices, p_size);
 		}
 
 		FE_CORE_ASSERT(false, "Unknown Renderer API not supported!");

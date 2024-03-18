@@ -14,7 +14,7 @@
 
 
 // TODO: Generalize imgui layer to support vulkan/platforms
-namespace fusion {
+namespace Fusion {
 
 	ImGUILayer::ImGUILayer() : Layer("imgui")
 	{
@@ -25,7 +25,7 @@ namespace fusion {
 
 	}
 
-	void ImGUILayer::on_attach()
+	void ImGUILayer::OnAttach()
 	{
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
@@ -46,38 +46,38 @@ namespace fusion {
 			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 		}
 
-		Application& app = Application::get();
-		GLFWwindow* window = static_cast<GLFWwindow*>(app.get_window().get_native_window());
+		Application& app = Application::Get();
+		GLFWwindow* window = static_cast<GLFWwindow*>(app.GetWindow().GetNativeWindow());
 
 		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410");
 	}
 
-	void ImGUILayer::on_detach()
+	void ImGUILayer::OnDetach()
 	{
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
 	}
 
-	void ImGUILayer::on_imgui_render()
+	void ImGUILayer::OnImguiRender()
 	{
 		static bool show = true;
 		ImGui::ShowDemoWindow(&show);
 	}
 
-	void ImGUILayer::begin()
+	void ImGUILayer::Begin()
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 	}
 
-	void ImGUILayer::end()
+	void ImGUILayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
-		Application& app = Application::get();
-		io.DisplaySize = ImVec2((float)app.get_window().get_width(), (float)app.get_window().get_height());
+		Application& app = Application::Get();
+		io.DisplaySize = ImVec2((float)app.GetWindow().GetWidth(), (float)app.GetWindow().GetHeight());
 
 		// Render the gui
 		ImGui::Render();
@@ -86,10 +86,10 @@ namespace fusion {
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
 		{
 
-			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			GLFWwindow* backupCurrentContext = glfwGetCurrentContext();
 			ImGui::UpdatePlatformWindows();
 			ImGui::RenderPlatformWindowsDefault();
-			glfwMakeContextCurrent(backup_current_context);
+			glfwMakeContextCurrent(backupCurrentContext);
 		}
 	}
 }

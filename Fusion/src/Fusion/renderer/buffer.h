@@ -1,6 +1,6 @@
 #pragma once
 
-namespace fusion {
+namespace Fusion {
 
 	enum class ShaderDataType : uint8_t
 	{
@@ -18,9 +18,9 @@ namespace fusion {
 		Bool
 	};
 
-	static uint32_t ShaderDataTypeSize(ShaderDataType type)
+	static uint32_t ShaderDataTypeSize(ShaderDataType p_type)
 	{
-		switch (type)
+		switch (p_type)
 		{
 			case ShaderDataType::Float:    return 4;
 			case ShaderDataType::Float2:   return 4 * 2;
@@ -49,8 +49,8 @@ namespace fusion {
 
 		BufferElement() = default;
 
-		BufferElement(ShaderDataType type, const std::string& name, bool normalized = false)
-			: name(name), type(type), size(ShaderDataTypeSize(type)), offset(0), normalized(normalized)
+		BufferElement(ShaderDataType p_type, const std::string& p_name, bool p_normalized = false)
+			: name(p_name), type(p_type), size(ShaderDataTypeSize(p_type)), offset(0), normalized(p_normalized)
 		{}
 
 		uint32_t GetComponentCount() const
@@ -80,14 +80,14 @@ namespace fusion {
 	public:
 		BufferLayout() = default;
 
-		BufferLayout(const std::initializer_list<BufferElement>& elements)
-			: _elements(elements)
+		BufferLayout(const std::initializer_list<BufferElement>& p_elements)
+			: _elements(p_elements)
 		{
-			calculate_offset_and_stride();
+			CalculateStrideAndOffset();
 		}
 
-		inline const std::vector<BufferElement>& get_elements() const { return _elements; }
-		inline uint32_t get_stride() const { return _stride; }
+		inline const std::vector<BufferElement>& GetElements() const { return _elements; }
+		inline uint32_t GetStride() const { return _stride; }
 
 		std::vector<BufferElement>::iterator begin() { return _elements.begin(); }
 		std::vector<BufferElement>::iterator end() { return _elements.end(); }
@@ -96,7 +96,7 @@ namespace fusion {
 		std::vector<BufferElement>::const_iterator end() const { return _elements.end(); }
 
 	private:
-		void calculate_offset_and_stride()
+		void CalculateStrideAndOffset()
 		{
 			uint32_t offset = 0;
 			_stride = 0;
@@ -117,14 +117,14 @@ namespace fusion {
 	public:
 		virtual ~VertexBuffer() = default;
 
-		virtual void bind(uint32_t vao) const = 0;
-		virtual void unbind(uint32_t vao) const = 0;
-		virtual uint32_t get_buffer() const = 0;
+		virtual void Bind(uint32_t p_vertexArray) const = 0;
+		virtual void Unbind(uint32_t p_vertexArray) const = 0;
+		virtual uint32_t GetBuffer() const = 0;
 
-		virtual void set_layout(const BufferLayout& layout) = 0;
-		virtual const BufferLayout& get_layout() const = 0;
+		virtual void SetLayout(const BufferLayout& p_layout) = 0;
+		virtual const BufferLayout& GetLayout() const = 0;
 
-		static VertexBuffer* create(float* vertices, uint32_t size);
+		static VertexBuffer* Create(float* p_vertices, uint32_t p_size);
 	};
 
 	class IndexBuffer 
@@ -132,12 +132,12 @@ namespace fusion {
 	public:
 		virtual ~IndexBuffer() = default;
 
-		virtual void bind(uint32_t vao) const = 0;
-		virtual void unbind(uint32_t vao) const = 0;
-		virtual uint32_t get_count() const = 0;
+		virtual void Bind(uint32_t p_vertexArray) const = 0;
+		virtual void Unbind(uint32_t p_vertexArray) const = 0;
+		virtual uint32_t GetCount() const = 0;
 
-		virtual uint32_t get_buffer() const = 0;
+		virtual uint32_t GetBuffer() const = 0;
 
-		static IndexBuffer* create(uint32_t* indices, uint32_t size);
+		static IndexBuffer* Create(uint32_t* p_indices, uint32_t p_size);
 	};
 }

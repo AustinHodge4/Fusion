@@ -2,13 +2,13 @@
 
 #include "fusion/renderer/renderer_api.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class OpenGLRendererAPI : public RendererAPI
 	{
-		virtual void set_clear_color(const glm::vec4& color) override;
-		virtual void clear() override;
+		virtual void SetClearColor(const glm::vec4& p_coloe) override;
+		virtual void Clear() override;
 
-		virtual void draw_indexed(const std::shared_ptr<VertexArray>& vertex_array) override;
+		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& p_vertexArray) override;
 	};
 }

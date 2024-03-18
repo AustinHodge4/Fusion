@@ -5,35 +5,35 @@
 
 #include "platform/opengl/opengl_shader.h"
 
-namespace fusion {
+namespace Fusion {
 
-	Shader* Shader::create(const std::string& name, const std::string& vertex_src, const std::string& fragment_src)
+	Shader* Shader::Create(const std::string& p_name, const std::string& p_vertexSource, const std::string& p_fragmentSource)
 	{
-		switch (Renderer::get())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
 			case RendererAPI::API::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL: return new OpenGLShader(name, vertex_src, fragment_src);
+			case RendererAPI::API::OpenGL: return new OpenGLShader(p_name, p_vertexSource, p_fragmentSource);
 		}
 
 		FE_CORE_ASSERT(false, "Unknown Renderer API not supported!");
 		return nullptr;
 	}
 
-	void ShaderLibrary::add(const std::string& name, Shader& shader)
+	void ShaderLibrary::Add(const std::string& p_name, Shader& p_shader)
 	{
-		FE_CORE_ASSERT(!exists(shader.get_name()), "Shader already exists!");
-		_library[name] = &shader;
+		FE_CORE_ASSERT(!Exists(p_shader.GetName()), "Shader already exists!");
+		_library[p_name] = &p_shader;
 	}
 
-	Shader* ShaderLibrary::get(const std::string& name) const
+	Shader* ShaderLibrary::GetShader(const std::string& p_name) const
 	{
-		FE_CORE_ASSERT(exists(name), "Shader does not exists!");
-		return _library.at(name);
+		FE_CORE_ASSERT(Exists(p_name), "Shader does not exists!");
+		return _library.at(p_name);
 	}
 
-	bool ShaderLibrary::exists(const std::string& name) const
+	bool ShaderLibrary::Exists(const std::string& p_name) const
 	{
-		return _library.find(name) != _library.end();
+		return _library.find(p_name) != _library.end();
 	}
 }

@@ -2,61 +2,61 @@
 
 #include "event.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class FUSION_API MouseMovedEvent : public Event
 	{
 	public:
-		MouseMovedEvent(const float x, const float y)
-			: _mouse_x(x), _mouse_y(y) {}
+		MouseMovedEvent(const float p_x, const float p_y)
+			: _mouseX(p_x), _mouseY(p_y) {}
 
-		inline float get_x() const { return _mouse_x; }
-		inline float get_y() const { return _mouse_y; }
+		inline float GetX() const { return _mouseX; }
+		inline float GetY() const { return _mouseY; }
 
-		std::string to_string() const override
+		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseMovedEvent: " << _mouse_x << ", " << _mouse_y;
+			ss << "MouseMovedEvent: " << _mouseX << ", " << _mouseY;
 			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(MouseMoved)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
-		float _mouse_x, _mouse_y;
+		float _mouseX, _mouseY;
 	};
 
 	class FUSION_API MouseScrolledEvent : public Event
 	{
 	public:
-		MouseScrolledEvent(const float offset_x, const float offset_y)
-			: _offset_x(offset_x), _offset_y(offset_y) {}
+		MouseScrolledEvent(const float p_offsetX, const float p_offsetY)
+			: _offsetX(p_offsetX), _offsetY(p_offsetY) {}
 
-		float get_offset_x() const { return _offset_x; }
-		float get_offset_y() const { return _offset_y; }
+		float GetOffsetX() const { return _offsetX; }
+		float GetOffsetY() const { return _offsetY; }
 
-		std::string to_string() const override
+		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "MouseScrolledEvent: " << get_offset_x() << ", " << get_offset_y();
+			ss << "MouseScrolledEvent: " << GetOffsetX() << ", " << GetOffsetY();
 			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(MouseScrolled)
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	private:
-		float _offset_x, _offset_y;
+		float _offsetX, _offsetY;
 	};
 
 	class FUSION_API MouseButtonEvent : public Event
 	{
 	public:
-		inline int get_mouse_button() const { return _button; }
+		inline int GetMouseButton() const { return _button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput | EventCategoryMouseButton)
 	protected:
-		MouseButtonEvent(int button)
-			: _button(button) {}
+		MouseButtonEvent(int p_button)
+			: _button(p_button) {}
 
 		int _button;
 	};
@@ -64,10 +64,10 @@ namespace fusion {
 	class FUSION_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int button)
-			: MouseButtonEvent(button) {}
+		MouseButtonPressedEvent(int p_button)
+			: MouseButtonEvent(p_button) {}
 
-		std::string to_string() const override
+		std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseButtonPressedEvent: " << _button;
@@ -80,10 +80,10 @@ namespace fusion {
 	class FUSION_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(int button)
-			: MouseButtonEvent(button) {}
+		MouseButtonReleasedEvent(int p_button)
+			: MouseButtonEvent(p_button) {}
 
-		std::string to_string() const override
+		std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "MouseButtonReleasedEvent: " << _button;

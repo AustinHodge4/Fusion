@@ -3,32 +3,32 @@
 
 #include "input_keys.h"
 
-namespace fusion {
+namespace Fusion {
 
-    bool VirtualKey::is_valid() const
+    bool VirtualKey::IsValid() const
     {
         if (_name != "Invalid") {
-            if (_key_details == nullptr)
+            if (_keydetails == nullptr)
             {
-                _key_details = Key::get_key_details(*this);
+                _keydetails = Key::GetKeyDetails(*this);
             }
-            return _key_details != nullptr;
+            return _keydetails != nullptr;
         }
         return false;
     }
 
-    bool VirtualKey::is_gamepad_key() const
+    bool VirtualKey::IsGamepadKey() const
     {
-        return is_valid() ? _key_details->is_gamepad_key() : false;
+        return IsValid() ? _keydetails->IsGamepadKey() : false;
     }
 
-    bool VirtualKey::is_modifier_key() const
+    bool VirtualKey::IsModifierKey() const
     {
-        return is_valid() ? _key_details->is_modifier_key() : false;
+        return IsValid() ? _keydetails->IsModifierKey() : false;
     }
 
-    bool VirtualKey::is_mouse_button() const
+    bool VirtualKey::IsMouseButton() const
     {
-        return is_valid() ? _key_details->is_mouse_button() : false;
+        return IsValid() ? _keydetails->IsMouseButton() : false;
     }
 }

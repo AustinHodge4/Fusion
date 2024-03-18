@@ -2,20 +2,20 @@
 
 #include "fusion/renderer/shader.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class OpenGLShader : public Shader 
 	{
 	public:
-		OpenGLShader(const std::string& name, const std::string& vertex_src, const std::string& fragment_src);
+		OpenGLShader(const std::string& p_name, const std::string& p_vertexSource, const std::string& p_fragmentSource);
 		virtual ~OpenGLShader();
 
-		virtual void bind() const override;
-		virtual void unbind() const override;
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
 
-		virtual inline const std::string& get_name() const override { return _name; }
+		virtual inline const std::string& GetName() const override { return _name; }
 	private:
-		uint32_t _renderer_id;
+		uint32_t _rendererID;
 		std::string _name;
 	};
 }

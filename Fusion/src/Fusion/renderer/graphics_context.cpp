@@ -5,15 +5,15 @@
 
 #include "platform/opengl/opengl_context.h"
 
-namespace fusion
+namespace Fusion
 {
-	GraphicsContext* GraphicsContext::create(void* window)
+	GraphicsContext* GraphicsContext::Create(void* p_window)
 	{
-		switch (Renderer::get())
+		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
 		case RendererAPI::API::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL: return new OpenGLContext(static_cast<GLFWwindow*>(window));
+		case RendererAPI::API::OpenGL: return new OpenGLContext(static_cast<GLFWwindow*>(p_window));
 		}
 
 		FE_CORE_ASSERT(false, "Unknown Renderer API not supported!");

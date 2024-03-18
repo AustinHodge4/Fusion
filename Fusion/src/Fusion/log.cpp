@@ -2,17 +2,17 @@
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-namespace fusion {
-	std::shared_ptr<spdlog::logger> Log::_core_logger;
-	std::shared_ptr<spdlog::logger> Log::_client_logger;
+namespace Fusion {
+	std::shared_ptr<spdlog::logger> Log::_coreLogger;
+	std::shared_ptr<spdlog::logger> Log::_clientLogger;
 
-	void Log::init()
+	void Log::Initialize()
 	{
 		spdlog::set_pattern("%^[%T] %n: %v%$");
-		_core_logger = spdlog::stdout_color_mt("Fusion");
-		_core_logger->set_level(spdlog::level::trace);
+		_coreLogger = spdlog::stdout_color_mt("Fusion");
+		_coreLogger->set_level(spdlog::level::trace);
 
-		_client_logger = spdlog::stdout_color_mt("App");
-		_client_logger->set_level(spdlog::level::trace);
+		_clientLogger = spdlog::stdout_color_mt("App");
+		_clientLogger->set_level(spdlog::level::trace);
 	}
 }

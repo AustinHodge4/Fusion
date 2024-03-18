@@ -4,11 +4,11 @@
 #include "renderer.h"
 #include "platform/opengl/opengl_vertex_array.h"
 
-namespace fusion {
+namespace Fusion {
 
-	VertexArray* fusion::VertexArray::create()
+	VertexArray* Fusion::VertexArray::Create()
 	{
-		switch (Renderer::get())
+		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
 			case RendererAPI::API::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;

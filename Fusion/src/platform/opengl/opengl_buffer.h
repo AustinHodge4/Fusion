@@ -2,40 +2,40 @@
 
 #include "fusion/renderer/buffer.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class OpenGLVertexBuffer : public VertexBuffer 
 	{
 	public:
-		OpenGLVertexBuffer(float* vertices, uint32_t size);
+		OpenGLVertexBuffer(float* p_vertices, uint32_t p_size);
 		virtual ~OpenGLVertexBuffer();
 
-		virtual void bind(uint32_t vao) const override;
-		virtual void unbind(uint32_t vao) const override;
+		virtual void Bind(uint32_t p_vertexArray) const override;
+		virtual void Unbind(uint32_t p_vertexArray) const override;
 
-		virtual inline uint32_t get_buffer() const override { return _renderer_id; }
+		virtual inline uint32_t GetBuffer() const override { return _rendererID; }
 
-		virtual inline void set_layout(const BufferLayout& layout) override { _layout = layout; }
-		virtual inline const BufferLayout& get_layout() const override { return _layout; }
+		virtual inline void SetLayout(const BufferLayout& p_layout) override { _layout = p_layout; }
+		virtual inline const BufferLayout& GetLayout() const override { return _layout; }
 
 	private:
-		uint32_t _renderer_id;
+		uint32_t _rendererID;
 		BufferLayout _layout;
 	};
 
 	class OpenGLIndexBuffer : public IndexBuffer
 	{
 	public:
-		OpenGLIndexBuffer(uint32_t* indices, uint32_t size);
+		OpenGLIndexBuffer(uint32_t* p_indices, uint32_t p_size);
 		virtual ~OpenGLIndexBuffer();
 
-		virtual void bind(uint32_t vao) const override;
-		virtual void unbind(uint32_t vao) const override;
-		virtual inline uint32_t get_count() const override { return _count; }
+		virtual void Bind(uint32_t p_vertexArray) const override;
+		virtual void Unbind(uint32_t p_vertexArray) const override;
+		virtual inline uint32_t GetCount() const override { return _count; }
 
-		virtual inline uint32_t get_buffer() const override { return _renderer_id; }
+		virtual inline uint32_t GetBuffer() const override { return _rendererID; }
 	private:
-		uint32_t _renderer_id;
+		uint32_t _rendererID;
 		uint32_t _count;
 	};
 }

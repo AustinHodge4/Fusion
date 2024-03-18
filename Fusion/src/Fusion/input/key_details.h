@@ -3,7 +3,7 @@
 #include "fusion/core.h"
 #include "virtual_key.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class FUSION_API KeyDetails
 	{
@@ -20,23 +20,23 @@ namespace fusion {
 			NoFlags = 0,
 		};
 
-		KeyDetails(const VirtualKey& input_key, const std::string& display_name, const uint32_t key_flags = 0);
+		KeyDetails(const VirtualKey& p_key, const std::string& p_displayName, const uint32_t p_flags = 0);
 
 	public:
-		VirtualKey& get_key() { return _input_key; }
-		const std::string& get_display_name() const { return _display_name; }
+		VirtualKey& GetKey() { return _key; }
+		const std::string& GetDisplayName() const { return _displayName; }
 
-		inline const bool is_gamepad_key() const { return _is_gamepad; }
-		inline const bool is_modifier_key() const { return _is_modifier; }
-		inline const bool is_mouse_button() const { return _is_mouse_button; }
+		inline const bool IsGamepadKey() const { return _isGamepad; }
+		inline const bool IsModifierKey() const { return _isModifier; }
+		inline const bool IsMouseButton() const { return _isMouseButton; }
 	private:
-		void initialize(const uint32_t key_flags = 0);
+		void Initialize(const uint32_t p_flags = 0);
 
-		VirtualKey _input_key;
-		std::string _display_name;
+		VirtualKey _key;
+		std::string _displayName;
 		
-		bool _is_gamepad;
-		bool _is_modifier;
-		bool _is_mouse_button;
+		bool _isGamepad;
+		bool _isModifier;
+		bool _isMouseButton;
 	};
 }

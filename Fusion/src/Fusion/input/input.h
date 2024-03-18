@@ -5,7 +5,7 @@
 #include "input_keys.h"
 #include "platform/platform_input_manager.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class KeyEvent;
 
@@ -16,18 +16,18 @@ namespace fusion {
 		friend Key;
 		friend KeyEvent;
 
-		inline static bool is_key_pressed(const VirtualKey& keycode) { return PlatformInput::is_key_pressed_impl(keycode); }
-		inline static bool is_mouse_button_pressed(const VirtualKey& button) { return PlatformInput::is_mouse_button_pressed_impl(button); }
-		inline static float get_mouse_x() { return PlatformInput::get_mouse_x_impl(); }
-		inline static float get_mouse_y() { return PlatformInput::get_mouse_y_impl(); }
-		inline static std::pair<float, float> get_mouse_pos() { return PlatformInput::get_mouse_pos_impl(); }
+		inline static bool IsKeyPressed(const VirtualKey& p_keycode) { return PlatformInput::IsKeyPressedImpl(p_keycode); }
+		inline static bool IsMouseButtonPressed(const VirtualKey& p_button) { return PlatformInput::IsMouseButtonPressedImpl(p_button); }
+		inline static float GetMouseX() { return PlatformInput::GetMouseXImpl(); }
+		inline static float GetMouseY() { return PlatformInput::GetMouseYImpl(); }
+		inline static std::pair<float, float> GetMousePos() { return PlatformInput::GetMousePosImpl(); }
 	protected:
-		static const VirtualKey& get_key_from_codes(const int keycode);
-		static int get_codes_from_key(const VirtualKey& key);
+		static const VirtualKey& GetKeyFromCodes(const int p_keycode);
+		static int GetCodesFromKey(const VirtualKey& p_key);
 
-		static void initialize_keys();
+		static void InitializeKeys();
 
 	private:
-		static std::unordered_map<int, VirtualKey> _key_map;
+		static std::unordered_map<int, VirtualKey> _keymap;
 	};
 }

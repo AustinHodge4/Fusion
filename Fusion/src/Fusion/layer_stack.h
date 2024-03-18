@@ -3,7 +3,7 @@
 #include "core.h"
 #include "layer.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class FUSION_API LayerStack
 	{
@@ -11,16 +11,16 @@ namespace fusion {
 		LayerStack();
 		~LayerStack();
 
-		void push_layer(Layer* layer);
-		void push_overlay(Layer* layer);
-		void pop_layer(Layer* layer);
-		void pop_overlay(Layer* layer);
+		void PushLayer(Layer* p_layer);
+		void PushOverlay(Layer* p_layer);
+		void PopLayer(Layer* p_layer);
+		void PopOverlay(Layer* p_layer);
 
 		std::vector<Layer*>::iterator begin() { return _layers.begin(); }
 		std::vector<Layer*>::iterator end() { return _layers.end(); }
 	private:
 		std::vector<Layer*> _layers;
-		unsigned int _layer_insert_index = 0;
+		unsigned int _insertIndex = 0;
 	};
 
 }

@@ -2,26 +2,26 @@
 
 #include "renderer_api.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class RenderCommand 
 	{
 	public:
-		inline static void set_clear_color(const glm::vec4& color)
+		inline static void SetClearColor(const glm::vec4& p_color)
 		{
-			_renderer_api->set_clear_color(color);
+			_rendererAPI->SetClearColor(p_color);
 		}
 
-		inline static void clear()
+		inline static void Clear()
 		{
-			_renderer_api->clear();
+			_rendererAPI->Clear();
 		}
 
-		inline static void draw_indexed(const std::shared_ptr<VertexArray>& vertex_array)
+		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& p_vertexArray)
 		{
-			_renderer_api->draw_indexed(vertex_array);
+			_rendererAPI->DrawIndexed(p_vertexArray);
 		}
 	private:
-		static RendererAPI* _renderer_api;
+		static RendererAPI* _rendererAPI;
 	};
 }

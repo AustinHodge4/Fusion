@@ -1,7 +1,7 @@
 #include "fepch.h"
 #include "renderer_api.h"
 
-namespace fusion {
+namespace Fusion {
 
 	RendererAPI::API RendererAPI::_api = RendererAPI::API::OpenGL;
 }

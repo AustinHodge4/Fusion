@@ -3,50 +3,50 @@
 
 #include "input_keys.h"
 
-namespace fusion {
+namespace Fusion {
 
-	std::unordered_map<int, VirtualKey> Input::_key_map;
+	std::unordered_map<int, VirtualKey> Input::_keymap;
 
-	const VirtualKey& Input::get_key_from_codes(const int keycode)
+	const VirtualKey& Input::GetKeyFromCodes(const int p_keycode)
 	{
-		auto entry = _key_map.find(keycode);
-		if (entry == _key_map.end()) {
-			FE_CORE_WARN("Key code does not have a key!!: {0}", keycode);
+		auto entry = _keymap.find(p_keycode);
+		if (entry == _keymap.end()) {
+			FE_CORE_WARN("Key code does not have a key!!: {0}", p_keycode);
 			return Key::Invalid;
 		}
 
 		return entry->second;
 	}
 
-	int Input::get_codes_from_key(const VirtualKey& key)
+	int Input::GetCodesFromKey(const VirtualKey& p_key)
 	{
-		auto entry = std::find_if(_key_map.begin(), _key_map.end(), [key](auto& pair) { return pair.second == key; });
-		if (entry == _key_map.end()) {
-			FE_CORE_ERROR("Key does not have a keycode!! {0}", key.get_name());
+		auto entry = std::find_if(_keymap.begin(), _keymap.end(), [p_key](auto& pair) { return pair.second == p_key; });
+		if (entry == _keymap.end()) {
+			FE_CORE_ERROR("Key does not have a keycode!! {0}", p_key.GetName());
 			return -1;
 		}
 		return entry->first;
 	}
 
-	void Input::initialize_keys()
+	void Input::InitializeKeys()
 	{
 		unsigned int keycodes[256];
-		std::string key_names[256];
+		std::string keynames[256];
 
-		unsigned int count = PlatformInput::get_platform_keys(keycodes, key_names);
+		unsigned int count = PlatformInput::GetPlatformKeys(keycodes, keynames);
 		FE_CORE_INFO("Platform keys mappings: {0}", count);
 
-		_key_map.clear();
+		_keymap.clear();
 
 		for (unsigned int i = 0; i < count; i++)
 		{
-			VirtualKey key(key_names[i]);
+			VirtualKey key(keynames[i]);
 
-			if (!key.is_valid()) {
+			if (!key.IsValid()) {
 				FE_CORE_ERROR("Platform key is not valid!");
 				continue;
 			}
-			_key_map.insert({ keycodes[i], key });
+			_keymap.insert({ keycodes[i], key });
 		}
 	}
 

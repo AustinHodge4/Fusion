@@ -2,17 +2,17 @@
 
 #include "fusion/input/virtual_key.h"
 
-namespace fusion {
+namespace Fusion {
 	class FUSION_API WindowsInput
 	{
 	public:
-		static bool is_key_pressed_impl(const VirtualKey& keycode);
-		static bool is_mouse_button_pressed_impl(const VirtualKey& button);
-		static std::pair<float, float> get_mouse_pos_impl();
-		static float get_mouse_x_impl();
-		static float get_mouse_y_impl();
+		static bool IsKeyPressedImpl(const VirtualKey& p_keycode);
+		static bool IsMouseButtonPressedImpl(const VirtualKey& p_button);
+		static std::pair<float, float> GetMousePosImpl();
+		static float GetMouseXImpl();
+		static float GetMouseYImpl();
 
-		static unsigned int get_platform_keys(unsigned int* keycodes, std::string* key_names);
+		static unsigned int GetPlatformKeys(unsigned int* p_keycodes, std::string* p_keynames);
 	};
 	typedef WindowsInput PlatformInput;
 }

@@ -2,69 +2,69 @@
 
 #include <imgui.h>
 
-class ExampleLayer : public fusion::Layer
+class ExampleLayer : public Fusion::Layer
 {
 public:
 	ExampleLayer() : Layer("Example") {}
 
-	void on_update() override
+	void OnUpdate() override
 	{
-		if (fusion::Input::is_key_pressed(fusion::Key::W))
+		if (Fusion::Input::IsKeyPressed(Fusion::Key::W))
 		{
 			FE_TRACE("Pressed W key (poll)");
 		}
 		
 	}
 
-	void on_imgui_render() override
+	void OnImguiRender() override
 	{
 		ImGui::Begin("test");
 		ImGui::Text("Hello world :)");
 		ImGui::End();
 	}
 
-	void on_event(fusion::Event& e) override
+	void OnEvent(Fusion::Event& p_event) override
 	{
-		if (e.get_event_type() == fusion::EventType::KeyPressed) {
-			fusion::KeyPressedEvent& event = (fusion::KeyPressedEvent&)e;
-			if (event.get_key() == fusion::Key::W) {
-				FE_TRACE("Pressed {0} key (event)!", fusion::Key::get_key_details(fusion::Key::W)->get_display_name());
+		if (p_event.GetEventType() == Fusion::EventType::KeyPressed) {
+			Fusion::KeyPressedEvent& event = (Fusion::KeyPressedEvent&)p_event;
+			if (event.GetKey() == Fusion::Key::W) {
+				FE_TRACE("Pressed {0} key (event)!", Fusion::Key::GetKeyDetails(Fusion::Key::W)->GetDisplayName());
 			}
-			FE_TRACE("{0}", event.get_key().get_name());
+			FE_TRACE("{0}", event.GetKey().GetName());
 		}
 	}
 };
 
-class RenderLayer : public fusion::Layer
+class RenderLayer : public Fusion::Layer
 {
 public:
 	RenderLayer() : Layer("Render") 
 	{
-		_vertex_array.reset(fusion::VertexArray::create());
+		_vertexArray.reset(Fusion::VertexArray::Create());
 
 		float vertices[3 * 6] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
 			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
 			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
 		};
-		std::shared_ptr<fusion::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(fusion::VertexBuffer::create(vertices, sizeof(vertices)));
+		std::shared_ptr<Fusion::VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(Fusion::VertexBuffer::Create(vertices, sizeof(vertices)));
 		{
-			fusion::BufferLayout layout = {
-				{ fusion::ShaderDataType::Float3, "inPosition"},
-				{ fusion::ShaderDataType::Float3, "inColor"}
+			Fusion::BufferLayout layout = {
+				{ Fusion::ShaderDataType::Float3, "inPosition"},
+				{ Fusion::ShaderDataType::Float3, "inColor"}
 			};
 
-			vertexBuffer->set_layout(layout);
+			vertexBuffer->SetLayout(layout);
 		}
-		_vertex_array->add_vertex_buffer(vertexBuffer);
+		_vertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<fusion::IndexBuffer> indexBuffer;
-		indexBuffer.reset(fusion::IndexBuffer::create(indices, sizeof(indices) / sizeof(uint32_t)));
-		_vertex_array->set_index_buffer(indexBuffer);
+		std::shared_ptr<Fusion::IndexBuffer> indexBuffer;
+		indexBuffer.reset(Fusion::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		_vertexArray->SetIndexBuffer(indexBuffer);
 
-		_vertex_array->unbind();
+		_vertexArray->Unbind();
 
 		const std::string vertexShader = R"(
 			#version 460 core
@@ -93,40 +93,40 @@ public:
 			}
 		)";
 
-		_shader.reset(fusion::Shader::create("base", vertexShader, fragmentShader));
+		_shader.reset(Fusion::Shader::Create("base", vertexShader, fragmentShader));
 	}
 
 	~RenderLayer() 
 	{
-		_vertex_array->unbind();
-		_shader->unbind();
+		_vertexArray->Unbind();
+		_shader->Unbind();
 	}
 
-	void on_update() override
+	void OnUpdate() override
 	{
-		fusion::RenderCommand::set_clear_color({ 0.1f, 0.1f, 0.1f, 1 });
-		fusion::RenderCommand::clear();
+		Fusion::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+		Fusion::RenderCommand::Clear();
 
-		fusion::Renderer::begin_scene();
+		Fusion::Renderer::BeginScene();
 		{
-			_shader->bind();
-			fusion::Renderer::submit(_vertex_array);
+			_shader->Bind();
+			Fusion::Renderer::Submit(_vertexArray);
 		}
-		fusion::Renderer::end_scene();
+		Fusion::Renderer::EndScene();
 	}
 private:
-	std::shared_ptr<fusion::VertexArray> _vertex_array;
+	std::shared_ptr<Fusion::VertexArray> _vertexArray;
 
-	std::unique_ptr<fusion::Shader> _shader;
+	std::unique_ptr<Fusion::Shader> _shader;
 };
 
-class Sandbox : public fusion::Application
+class Sandbox : public Fusion::Application
 {
 public:
 	Sandbox()
 	{
-		push_layer(new ExampleLayer());
-		push_layer(new RenderLayer());
+		PushLayer(new ExampleLayer());
+		PushLayer(new RenderLayer());
 	}
 
 	~Sandbox()
@@ -135,7 +135,7 @@ public:
 	}
 };
 
-fusion::Application* fusion::create_application() 
+Fusion::Application* Fusion::CreateApp() 
 {
 	return new Sandbox();
 }

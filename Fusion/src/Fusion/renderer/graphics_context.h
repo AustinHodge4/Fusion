@@ -1,13 +1,13 @@
 #pragma once
 
-namespace fusion {
+namespace Fusion {
 
 	class GraphicsContext
 	{
 	public:
-		virtual void init() = 0;
-		virtual void swap_buffers() = 0;
+		virtual void Initialize() = 0;
+		virtual void SwapBuffers() = 0;
 
-		static GraphicsContext* create(void* window);
+		static GraphicsContext* Create(void* p_window);
 	};
 }

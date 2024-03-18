@@ -10,7 +10,7 @@
 #include "layer_stack.h"
 #include "imgui/imgui_layer.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class FUSION_API Application
 	{
@@ -18,29 +18,29 @@ namespace fusion {
 		Application();
 		virtual ~Application();
 
-		void run();
+		void Run();
 
-		void on_event(Event& e);
+		void OnEvent(Event& p_event);
 
-		void push_layer(Layer* layer);
-		void push_overlay(Layer* layer);
+		void PushLayer(Layer* p_layer);
+		void PushOverlay(Layer* p_layer);
 
-		inline static Application& get() { return *_instance; }
-		inline Window& get_window() { return *_window; }
+		inline static Application& Get() { return *_instance; }
+		inline Window& GetWindow() { return *_window; }
 
 	private:
-		bool on_window_closed(WindowCloseEvent& e);
+		bool OnWindowClosed(WindowCloseEvent& p_event);
 	private:
 		inline static Application* _instance;
 
 		std::unique_ptr<Window> _window;
-		ImGUILayer* _imgui_layer;
+		ImGUILayer* _imguiLayer;
 
 		bool _running = true;
-		LayerStack _layer_stack;
+		LayerStack _layerStack;
 	};
 
-	Application* create_application();
+	Application* CreateApp();
 
 }
 

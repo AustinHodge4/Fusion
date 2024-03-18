@@ -5,14 +5,14 @@
 #include <GLFW/glfw3.h>
 #include <glad/glad.h>
 
-namespace fusion
+namespace Fusion
 {
-	OpenGLContext::OpenGLContext(GLFWwindow* handle) : _handle(handle)
+	OpenGLContext::OpenGLContext(GLFWwindow* p_handle) : _handle(p_handle)
 	{
 		FE_CORE_ASSERT(_handle, "Windows handle is null!");
 	}
 
-	void OpenGLContext::init()
+	void OpenGLContext::Initialize()
 	{
 		glfwMakeContextCurrent(_handle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
@@ -26,7 +26,7 @@ namespace fusion
 		FE_CORE_ASSERT(GLVersion.major > 4 || (GLVersion.major == 4 && GLVersion.minor >= 5), "Fusion requires at least OpenGL version 4.5!");
 	}
 
-	void OpenGLContext::swap_buffers()
+	void OpenGLContext::SwapBuffers()
 	{
 		glfwSwapBuffers(_handle);
 	}

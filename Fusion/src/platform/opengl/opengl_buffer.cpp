@@ -3,53 +3,53 @@
 
 #include <glad/glad.h>
 
-namespace fusion {
+namespace Fusion {
 
-	OpenGLVertexBuffer::OpenGLVertexBuffer(float* vertices, uint32_t size) : _renderer_id(0)
+	OpenGLVertexBuffer::OpenGLVertexBuffer(float* p_vertices, uint32_t p_size) : _rendererID(0)
 	{
-		glCreateBuffers(1, &_renderer_id);
-		glNamedBufferStorage(_renderer_id, size, vertices, GL_DYNAMIC_STORAGE_BIT);
+		glCreateBuffers(1, &_rendererID);
+		glNamedBufferStorage(_rendererID, p_size, p_vertices, GL_DYNAMIC_STORAGE_BIT);
 	}
 
 	OpenGLVertexBuffer::~OpenGLVertexBuffer()
 	{
-		glDeleteBuffers(1, &_renderer_id);
+		glDeleteBuffers(1, &_rendererID);
 	}
 
-	void OpenGLVertexBuffer::bind(uint32_t vao) const
+	void OpenGLVertexBuffer::Bind(uint32_t p_vertexArray) const
 	{
 		uint32_t index = 0;
 		for (const auto& element : _layout)
 		{
-			glVertexArrayVertexBuffer(vao, index, _renderer_id, 0, _layout.get_stride());
+			glVertexArrayVertexBuffer(p_vertexArray, index, _rendererID, 0, _layout.GetStride());
 			index++;
 		}
 	}
 
-	void OpenGLVertexBuffer::unbind(uint32_t vao) const
+	void OpenGLVertexBuffer::Unbind(uint32_t p_vertexArray) const
 	{
-		glVertexArrayVertexBuffer(vao, 0, 0, 0, 0);
+		glVertexArrayVertexBuffer(p_vertexArray, 0, 0, 0, 0);
 	}
 
-	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* indices, uint32_t count)
-		: _renderer_id(0), _count(count)
+	OpenGLIndexBuffer::OpenGLIndexBuffer(uint32_t* p_indices, uint32_t p_count)
+		: _rendererID(0), _count(p_count)
 	{
-		glCreateBuffers(1, &_renderer_id);
-		glNamedBufferStorage(_renderer_id, count * sizeof(uint32_t), indices, GL_DYNAMIC_STORAGE_BIT);
+		glCreateBuffers(1, &_rendererID);
+		glNamedBufferStorage(_rendererID, p_count * sizeof(uint32_t), p_indices, GL_DYNAMIC_STORAGE_BIT);
 	}
 
 	OpenGLIndexBuffer::~OpenGLIndexBuffer()
 	{
-		glDeleteBuffers(1, &_renderer_id);
+		glDeleteBuffers(1, &_rendererID);
 	}
 
-	void OpenGLIndexBuffer::bind(uint32_t vao) const
+	void OpenGLIndexBuffer::Bind(uint32_t p_vertexArray) const
 	{
-		glVertexArrayElementBuffer(vao, _renderer_id);
+		glVertexArrayElementBuffer(p_vertexArray, _rendererID);
 	}
 
-	void OpenGLIndexBuffer::unbind(uint32_t vao) const
+	void OpenGLIndexBuffer::Unbind(uint32_t p_vertexArray) const
 	{
-		glVertexArrayElementBuffer(vao, 0);
+		glVertexArrayElementBuffer(p_vertexArray, 0);
 	}
 }

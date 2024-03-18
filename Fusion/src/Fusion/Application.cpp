@@ -3,18 +3,18 @@
 
 #include "input/input.h"
 
-namespace fusion {
+namespace Fusion {
 
 	Application::Application()
 	{
 		FE_CORE_ASSERT(!_instance, "Application already exists!");
 		_instance = this;
 
-		_window = std::unique_ptr<Window>(Window::create());
-		_window->set_event_callback(FE_BIND_EVENT_FN(Application::on_event));
+		_window = std::unique_ptr<Window>(Window::Create());
+		_window->SetEventCallback(FE_BIND_EVENT_FN(Application::OnEvent));
 
-		_imgui_layer = new ImGUILayer();
-		push_overlay(_imgui_layer);
+		_imguiLayer = new ImGUILayer();
+		PushOverlay(_imguiLayer);
 	}
 
 	Application::~Application()
@@ -22,54 +22,54 @@ namespace fusion {
 		
 	}
 
-	void Application::push_layer(Layer* layer)
+	void Application::PushLayer(Layer* p_layer)
 	{
-		_layer_stack.push_layer(layer);
-		layer->on_attach();
+		_layerStack.PushLayer(p_layer);
+		p_layer->OnAttach();
 	}
 
-	void Application::push_overlay(Layer* layer)
+	void Application::PushOverlay(Layer* p_layer)
 	{
-		_layer_stack.push_overlay(layer);
-		layer->on_attach();
+		_layerStack.PushOverlay(p_layer);
+		p_layer->OnAttach();
 	}
 
-	void Application::run()
+	void Application::Run()
 	{		
 		while (_running)
 		{
-			for (Layer* layer : _layer_stack)
+			for (Layer* layer : _layerStack)
 			{
-				layer->on_update();
+				layer->OnUpdate();
 			}
 
-			_imgui_layer->begin();
-			for (Layer* layer : _layer_stack)
+			_imguiLayer->Begin();
+			for (Layer* layer : _layerStack)
 			{
-				layer->on_imgui_render();
+				layer->OnImguiRender();
 			}
-			_imgui_layer->end();
+			_imguiLayer->End();
 
-			_window->on_update();
+			_window->OnUpdate();
 		}
 	}
 
-	void Application::on_event(Event& e)
+	void Application::OnEvent(Event& p_event)
 	{
-		//FE_CORE_INFO("{0}", e);
+		//FE_CORE_INFO("{0}", p_event);
 
-		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(FE_BIND_EVENT_FN(on_window_closed));
+		EventDispatcher dispatcher(p_event);
+		dispatcher.Dispatch<WindowCloseEvent>(FE_BIND_EVENT_FN(OnWindowClosed));
 
-		for (auto it = _layer_stack.end(); it != _layer_stack.begin();)
+		for (auto it = _layerStack.end(); it != _layerStack.begin();)
 		{
-			if (e.handled)
+			if (p_event.handled)
 				break;
-			(*--it)->on_event(e);
+			(*--it)->OnEvent(p_event);
 		}
 	}
 
-	bool Application::on_window_closed(WindowCloseEvent& e)
+	bool Application::OnWindowClosed(WindowCloseEvent& p_event)
 	{
 		_running = false;
 		return true;

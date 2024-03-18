@@ -7,7 +7,7 @@
 #include "fusion/events/key_event.h"
 #include "fusion/events/mouse_event.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class FUSION_API ImGUILayer : public Layer
 	{
@@ -15,12 +15,12 @@ namespace fusion {
 		ImGUILayer();
 		~ImGUILayer();
 
-		virtual void on_attach() override;
-		virtual void on_detach() override;
-		virtual void on_imgui_render() override;
+		virtual void OnAttach() override;
+		virtual void OnDetach() override;
+		virtual void OnImguiRender() override;
 
-		void begin();
-		void end();
+		void Begin();
+		void End();
 
 	private:
 		float _time = 0.0f;

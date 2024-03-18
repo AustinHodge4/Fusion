@@ -2,18 +2,18 @@
 
 #include "event.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class FUSION_API WindowResizeEvent : public Event
 	{
 	public:
-		WindowResizeEvent(unsigned int width, unsigned int height) 
-			: _width(width), _height(height) {}
+		WindowResizeEvent(unsigned int p_width, unsigned int p_height) 
+			: _width(p_width), _height(p_height) {}
 
-		unsigned int get_width() const { return _width; }
-		unsigned int get_height() const { return _height; }
+		unsigned int GetWidth() const { return _width; }
+		unsigned int GetHeight() const { return _height; }
 
-		std::string to_string() const override
+		std::string ToString() const override
 		{
 			std::stringstream ss;
 			ss << "WindowResizeEvent: " << _width << ", " << _height;

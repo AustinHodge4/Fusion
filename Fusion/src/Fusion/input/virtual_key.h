@@ -2,7 +2,7 @@
 
 #include "fusion/core.h"
 
-namespace fusion {
+namespace Fusion {
 	class KeyDetails;
 
 	class FUSION_API VirtualKey 
@@ -10,22 +10,22 @@ namespace fusion {
 	public:
 		friend class Key;
 
-		VirtualKey(const std::string& name) : _name(name) {}
+		VirtualKey(const std::string& p_name) : _name(p_name) {}
 
-		bool is_valid() const;
-		bool is_gamepad_key() const;
-		bool is_modifier_key() const;
-		bool is_mouse_button() const;
+		bool IsValid() const;
+		bool IsGamepadKey() const;
+		bool IsModifierKey() const;
+		bool IsMouseButton() const;
 
-		inline const std::string& get_name() const { return _name; }
+		inline const std::string& GetName() const { return _name; }
 
-		inline bool operator==(const VirtualKey& x) const { return this->_name == x._name; }
-		inline bool operator!=(const VirtualKey& x) { return this->_name != x._name; }
-		inline bool operator<(const VirtualKey& x) const { return this->_name.compare(x._name) < 0; }
+		inline bool operator==(const VirtualKey& p_key) const { return this->_name == p_key._name; }
+		inline bool operator!=(const VirtualKey& p_key) { return this->_name != p_key._name; }
+		inline bool operator<(const VirtualKey& p_key) const { return this->_name.compare(p_key._name) < 0; }
 
 	private:
 		std::string _name;
 
-		mutable std::shared_ptr<KeyDetails> _key_details;
+		mutable std::shared_ptr<KeyDetails> _keydetails;
 	};
 }

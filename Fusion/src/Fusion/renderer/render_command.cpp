@@ -3,7 +3,7 @@
 
 #include "platform/opengl/opengl_renderer_api.h"
 
-namespace fusion {
+namespace Fusion {
 
-	RendererAPI* RenderCommand::_renderer_api = new OpenGLRendererAPI();
+	RendererAPI* RenderCommand::_rendererAPI = new OpenGLRendererAPI();
 }

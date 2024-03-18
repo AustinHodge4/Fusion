@@ -3,21 +3,21 @@
 #include "core.h"
 #include "events/event.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class FUSION_API Layer
 	{
 	public:
-		Layer(const std::string& name = "Layer");
+		Layer(const std::string& p_name = "Layer");
 		virtual ~Layer();
 
-		virtual void on_attach() {}
-		virtual void on_detach() {}
-		virtual void on_update() {}
-		virtual void on_imgui_render() {}
-		virtual void on_event(Event& e) {}
+		virtual void OnAttach() {}
+		virtual void OnDetach() {}
+		virtual void OnUpdate() {}
+		virtual void OnImguiRender() {}
+		virtual void OnEvent(Event& p_event) {}
 
-		inline const std::string& get_name() const { return _name; }
+		inline const std::string& GetName() const { return _name; }
 	protected:
 		std::string _name;
 	};

@@ -6,7 +6,7 @@
 #include "fusion/input/virtual_key.h"
 #include "fusion/input/key_details.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class FUSION_API Key 
 	{
@@ -151,14 +151,14 @@ namespace fusion {
 		static const VirtualKey Exclamation;
 
 	public:
-		static void initialize();
-		static void add_key(KeyDetails& key_details);
+		static void Initialize();
+		static void AddKey(KeyDetails& p_keydetails);
 
-		static const std::shared_ptr<KeyDetails>& get_key_details(const VirtualKey& key);
+		static const std::shared_ptr<KeyDetails>& GetKeyDetails(const VirtualKey& p_key);
 
 	private:
 		static bool _initialized;
 
-		static std::map<VirtualKey, std::shared_ptr<KeyDetails>> _input_keys;
+		static std::map<VirtualKey, std::shared_ptr<KeyDetails>> _inputkeys;
 	};
 }

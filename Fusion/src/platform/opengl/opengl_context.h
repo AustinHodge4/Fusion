@@ -4,15 +4,15 @@
 
 struct GLFWwindow;
 
-namespace fusion
+namespace Fusion
 {
 	class OpenGLContext : public GraphicsContext
 	{
 	public:
-		OpenGLContext(GLFWwindow* handle);
+		OpenGLContext(GLFWwindow* p_handle);
 
-		virtual void init() override;
-		virtual void swap_buffers() override;
+		virtual void Initialize() override;
+		virtual void SwapBuffers() override;
 	private:
 		GLFWwindow* _handle;
 	};

@@ -2,16 +2,16 @@
 
 #include "render_command.h"
 
-namespace fusion {
+namespace Fusion {
 
 	class Renderer 
 	{
 	public:
-		static void begin_scene();
-		static void end_scene();
+		static void BeginScene();
+		static void EndScene();
 
-		static void submit(const std::shared_ptr<VertexArray>& vertex_array);
+		static void Submit(const std::shared_ptr<VertexArray>& p_vertexArray);
 
-		inline static RendererAPI::API get() { return RendererAPI::get_api(); }
+		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	};
 }

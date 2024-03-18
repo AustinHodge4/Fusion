@@ -6,26 +6,26 @@
 
 #include <GLFW/glfw3.h>
 
-namespace fusion {
+namespace Fusion {
 	class WindowsWindow : public Window
 	{
 	public:
-		WindowsWindow(const WindowProps& props);
+		WindowsWindow(const WindowProps& p_props);
 		virtual ~WindowsWindow();
 
-		virtual void on_update() override;
+		virtual void OnUpdate() override;
 
-		inline virtual unsigned int get_width() const override { return _data.width; }
-		inline virtual unsigned int get_height() const override { return _data.height; }
+		inline virtual unsigned int GetWidth() const override { return _data.width; }
+		inline virtual unsigned int GetHeight() const override { return _data.height; }
 
-		inline virtual void set_event_callback(const EventCallbackFn& callback) override { _data.event_callback = callback; }
-		virtual void set_vsync(bool enabled) override;
-		virtual bool is_vsync() const override;
+		inline virtual void SetEventCallback(const EventCallbackFn& p_callback) override { _data.eventCallback = p_callback; }
+		virtual void SetVsync(bool p_enabled) override;
+		virtual bool IsVsync() const override;
 
-		inline virtual void* get_native_window() const override { return _window; }
+		inline virtual void* GetNativeWindow() const override { return _window; }
 
 	private:
-		virtual void init(const WindowProps& props);
+		virtual void Initialize(const WindowProps& p_props);
 		virtual void shutdown();
 	private:
 		GLFWwindow* _window;
@@ -37,7 +37,7 @@ namespace fusion {
 			unsigned int width, height;
 			bool vsync;
 
-			EventCallbackFn event_callback;
+			EventCallbackFn eventCallback;
 		};
 
 		WindowData _data;

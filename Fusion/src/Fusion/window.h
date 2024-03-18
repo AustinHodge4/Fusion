@@ -5,7 +5,7 @@
 #include "core.h"
 #include "events/event.h"
 
-namespace fusion {
+namespace Fusion {
 
 	struct WindowProps
 	{
@@ -13,10 +13,10 @@ namespace fusion {
 		unsigned int width;
 		unsigned int height;
 
-		WindowProps(const std::string& title = "Fusion Engine",
-					unsigned int width = 1280,
-					unsigned int height = 720)
-			: title(title), width(width), height(height)
+		WindowProps(const std::string& p_title = "Fusion Engine",
+					unsigned int p_width = 1280,
+					unsigned int p_height = 720)
+			: title(p_title), width(p_width), height(p_height)
 		{}
 	};
 
@@ -27,17 +27,17 @@ namespace fusion {
 
 		virtual ~Window() {}
 
-		virtual void on_update() = 0;
+		virtual void OnUpdate() = 0;
 
-		virtual unsigned int get_width() const = 0;
-		virtual unsigned int get_height() const = 0;
+		virtual unsigned int GetWidth() const = 0;
+		virtual unsigned int GetHeight() const = 0;
 
-		virtual void set_event_callback(const EventCallbackFn& callback) = 0;
-		virtual void set_vsync(bool enabled) = 0;
-		virtual bool is_vsync() const = 0;
+		virtual void SetEventCallback(const EventCallbackFn& p_callback) = 0;
+		virtual void SetVsync(bool p_enabled) = 0;
+		virtual bool IsVsync() const = 0;
 
-		virtual void* get_native_window() const = 0;
+		virtual void* GetNativeWindow() const = 0;
 
-		static Window* create(const WindowProps& props = WindowProps());
+		static Window* Create(const WindowProps& p_props = WindowProps());
 	};
 }

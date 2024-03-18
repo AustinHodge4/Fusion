@@ -3,23 +3,23 @@
 
 #include <glad/glad.h>
 
-namespace fusion {
+namespace Fusion {
 
-	static GLenum ShaderDataTypeToGL(ShaderDataType type)
+	static GLenum ShaderDataTypeToGL(ShaderDataType p_type)
 	{
-		switch (type)
+		switch (p_type)
 		{
-			case fusion::ShaderDataType::Float:		return GL_FLOAT;
-			case fusion::ShaderDataType::Float2:	return GL_FLOAT;
-			case fusion::ShaderDataType::Float3:	return GL_FLOAT;
-			case fusion::ShaderDataType::Float4:	return GL_FLOAT;
-			case fusion::ShaderDataType::Mat3:		return GL_FLOAT;
-			case fusion::ShaderDataType::Mat4:		return GL_FLOAT;
-			case fusion::ShaderDataType::Int:		return GL_INT;
-			case fusion::ShaderDataType::Int2:		return GL_INT;
-			case fusion::ShaderDataType::Int3:		return GL_INT;
-			case fusion::ShaderDataType::Int4:		return GL_INT;
-			case fusion::ShaderDataType::Bool:		return GL_BOOL;
+			case Fusion::ShaderDataType::Float:		return GL_FLOAT;
+			case Fusion::ShaderDataType::Float2:	return GL_FLOAT;
+			case Fusion::ShaderDataType::Float3:	return GL_FLOAT;
+			case Fusion::ShaderDataType::Float4:	return GL_FLOAT;
+			case Fusion::ShaderDataType::Mat3:		return GL_FLOAT;
+			case Fusion::ShaderDataType::Mat4:		return GL_FLOAT;
+			case Fusion::ShaderDataType::Int:		return GL_INT;
+			case Fusion::ShaderDataType::Int2:		return GL_INT;
+			case Fusion::ShaderDataType::Int3:		return GL_INT;
+			case Fusion::ShaderDataType::Int4:		return GL_INT;
+			case Fusion::ShaderDataType::Bool:		return GL_BOOL;
 		}
 		FE_CORE_ASSERT(false, "Unknown shader type");
 		return 0;
@@ -27,48 +27,48 @@ namespace fusion {
 
 	OpenGLVertexArray::OpenGLVertexArray() 
 	{
-		glCreateVertexArrays(1, &_renderer_id);
+		glCreateVertexArrays(1, &_rendererID);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
-		glDisableVertexArrayAttrib(_renderer_id, 0);
-		glDeleteVertexArrays(1, &_renderer_id);
+		glDisableVertexArrayAttrib(_rendererID, 0);
+		glDeleteVertexArrays(1, &_rendererID);
 	}
 
-	void OpenGLVertexArray::bind() const
+	void OpenGLVertexArray::Bind() const
 	{
-		glBindVertexArray(_renderer_id);
+		glBindVertexArray(_rendererID);
 	}
 
-	void OpenGLVertexArray::unbind() const
+	void OpenGLVertexArray::Unbind() const
 	{
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::add_vertex_buffer(const std::shared_ptr<VertexBuffer>& vertex_buffer)
+	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& p_vertexBuffer)
 	{
-		FE_CORE_ASSERT(vertex_buffer->get_layout().get_elements().size(), "Vertex buffer has no layout!");
+		FE_CORE_ASSERT(p_vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer has no layout!");
 
-		vertex_buffer->bind(_renderer_id);
+		p_vertexBuffer->Bind(_rendererID);
 		
 		uint32_t index = 0;
-		const auto& layout = vertex_buffer->get_layout();
+		const auto& layout = p_vertexBuffer->GetLayout();
 		for (const auto& element : layout)
 		{
-			glVertexArrayAttribFormat(_renderer_id, index, element.GetComponentCount(), ShaderDataTypeToGL(element.type), element.normalized, element.offset);
-			glVertexArrayAttribBinding(_renderer_id, index, 0);
-			glEnableVertexArrayAttrib(_renderer_id, index);
+			glVertexArrayAttribFormat(_rendererID, index, element.GetComponentCount(), ShaderDataTypeToGL(element.type), element.normalized, element.offset);
+			glVertexArrayAttribBinding(_rendererID, index, 0);
+			glEnableVertexArrayAttrib(_rendererID, index);
 
 			index++;
 		}
 
-		_vertex_buffers.push_back(vertex_buffer);
+		_vertexBuffers.push_back(p_vertexBuffer);
 	}
 
-	void OpenGLVertexArray::set_index_buffer(const std::shared_ptr<IndexBuffer>& index_buffer)
+	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& p_indexBuffer)
 	{
-		index_buffer->bind(_renderer_id);
-		_index_buffer = index_buffer;
+		p_indexBuffer->Bind(_rendererID);
+		_indexBuffer = p_indexBuffer;
 	}
 }

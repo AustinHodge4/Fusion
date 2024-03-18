@@ -2,7 +2,7 @@
 
 #include "fusion/core.h"
 
-namespace fusion {
+namespace Fusion {
 
 	// Events in Fusion are currently blocking, meaning when an event occurs it
 	// immediately gets dispatched and must be dealt with right then an there.
@@ -28,11 +28,11 @@ namespace fusion {
 		EventCategoryMouseButton = BIT(4)
 	};
 
-#define EVENT_CLASS_TYPE(type) static EventType get_static_type() { return EventType::type; }\
-								virtual EventType get_event_type() const override { return get_static_type(); }\
-								virtual const char* get_name() const override { return #type; }
+#define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::type; }\
+								virtual EventType GetEventType() const override { return GetStaticType(); }\
+								virtual const char* GetName() const override { return #type; }
 
-#define EVENT_CLASS_CATEGORY(category) virtual int get_category_flags() const override { return category; }
+#define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
 	class FUSION_API Event
 	{
@@ -41,32 +41,32 @@ namespace fusion {
 
 		bool handled = false;
 
-		virtual EventType get_event_type() const = 0;
-		virtual const char* get_name() const = 0;
-		virtual int get_category_flags() const = 0;
-		virtual std::string to_string() const { return get_name(); }
+		virtual EventType GetEventType() const = 0;
+		virtual const char* GetName() const = 0;
+		virtual int GetCategoryFlags() const = 0;
+		virtual std::string ToString() const { return GetName(); }
 
-		bool is_in_category(EventCategory category)
+		bool IsInCategory(EventCategory p_category)
 		{
-			return get_category_flags() & category;
+			return GetCategoryFlags() & p_category;
 		}
 	};
 
 	class EventDispatcher
 	{
 	public:
-		EventDispatcher(Event& event)
-			: _event(event)
+		EventDispatcher(Event& p_event)
+			: _event(p_event)
 		{
 		}
 
 		// F will be deduced by the compiler
 		template<typename T, typename F>
-		bool Dispatch(const F& func)
+		bool Dispatch(const F& p_func)
 		{
-			if (_event.get_event_type() == T::get_static_type())
+			if (_event.GetEventType() == T::GetStaticType())
 			{
-				_event.handled |= func(static_cast<T&>(_event));
+				_event.handled |= p_func(static_cast<T&>(_event));
 				return true;
 			}
 			return false;
@@ -75,8 +75,8 @@ namespace fusion {
 		Event& _event;
 	};
 
-	inline std::ostream& operator<<(std::ostream& os, const Event& e)
+	inline std::ostream& operator<<(std::ostream& p_os, const Event& p_event)
 	{
-		return os << e.to_string();
+		return p_os << p_event.ToString();
 	}
 }

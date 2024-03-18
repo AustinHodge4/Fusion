@@ -4,7 +4,7 @@
 #include "input.h"
 #include "platform/platform_input_manager.h"
 
-namespace fusion {
+namespace Fusion {
 
 	const VirtualKey Key::Invalid("Invalid");
 
@@ -146,166 +146,166 @@ namespace fusion {
 	const VirtualKey Key::Exclamation("Exclamation");
 	
 	bool Key::_initialized = false;
-	std::map<VirtualKey, std::shared_ptr<KeyDetails>> Key::_input_keys;
+	std::map<VirtualKey, std::shared_ptr<KeyDetails>> Key::_inputkeys;
 
-	void Key::initialize()
+	void Key::Initialize()
 	{
 		if (_initialized) return;
 
 		_initialized = true;
 
-		add_key(KeyDetails(Key::Mouse2D, "Mouse 2D", KeyDetails::MouseButton | KeyDetails::Axis2D));
-		add_key(KeyDetails(Key::MouseX, "Mouse X", KeyDetails::MouseButton | KeyDetails::Axis1D));
-		add_key(KeyDetails(Key::MouseY, "Mouse Y", KeyDetails::MouseButton | KeyDetails::Axis1D));
-		add_key(KeyDetails(Key::MouseScroll, "Mouse Scroll Wheel", KeyDetails::MouseButton | KeyDetails::Axis1D));
-		add_key(KeyDetails(Key::MouseScrollUp, "Mouse Scroll Wheel Up", KeyDetails::MouseButton | KeyDetails::ButtonAxis));
-		add_key(KeyDetails(Key::MouseScrollDown, "Mouse Scroll Wheel Down", KeyDetails::MouseButton | KeyDetails::ButtonAxis));
+		AddKey(KeyDetails(Key::Mouse2D, "Mouse 2D", KeyDetails::MouseButton | KeyDetails::Axis2D));
+		AddKey(KeyDetails(Key::MouseX, "Mouse X", KeyDetails::MouseButton | KeyDetails::Axis1D));
+		AddKey(KeyDetails(Key::MouseY, "Mouse Y", KeyDetails::MouseButton | KeyDetails::Axis1D));
+		AddKey(KeyDetails(Key::MouseScroll, "Mouse Scroll Wheel", KeyDetails::MouseButton | KeyDetails::Axis1D));
+		AddKey(KeyDetails(Key::MouseScrollUp, "Mouse Scroll Wheel Up", KeyDetails::MouseButton | KeyDetails::ButtonAxis));
+		AddKey(KeyDetails(Key::MouseScrollDown, "Mouse Scroll Wheel Down", KeyDetails::MouseButton | KeyDetails::ButtonAxis));
 		
-		add_key(KeyDetails(Key::LeftMouseButton, "Left Mouse Button", KeyDetails::MouseButton));
-		add_key(KeyDetails(Key::RightMouseButton, "Right Mouse Button", KeyDetails::MouseButton));
-		add_key(KeyDetails(Key::MiddleMouseButton, "Middle Mouse Button", KeyDetails::MouseButton));
-		add_key(KeyDetails(Key::ThumbMouseButton, "Thumb Mouse Button", KeyDetails::MouseButton));
-		add_key(KeyDetails(Key::ThumbMouseButton2, "Thumb Mouse Button 2", KeyDetails::MouseButton));
+		AddKey(KeyDetails(Key::LeftMouseButton, "Left Mouse Button", KeyDetails::MouseButton));
+		AddKey(KeyDetails(Key::RightMouseButton, "Right Mouse Button", KeyDetails::MouseButton));
+		AddKey(KeyDetails(Key::MiddleMouseButton, "Middle Mouse Button", KeyDetails::MouseButton));
+		AddKey(KeyDetails(Key::ThumbMouseButton, "Thumb Mouse Button", KeyDetails::MouseButton));
+		AddKey(KeyDetails(Key::ThumbMouseButton2, "Thumb Mouse Button 2", KeyDetails::MouseButton));
 		
-		add_key(KeyDetails(Key::Zero, "0"));
-		add_key(KeyDetails(Key::One, "1"));
-		add_key(KeyDetails(Key::Two, "2"));
-		add_key(KeyDetails(Key::Three, "3"));
-		add_key(KeyDetails(Key::Four, "4"));
-		add_key(KeyDetails(Key::Five, "5"));
-		add_key(KeyDetails(Key::Six, "6"));
-		add_key(KeyDetails(Key::Seven, "7"));
-		add_key(KeyDetails(Key::Eight, "8"));
-		add_key(KeyDetails(Key::Nine, "9"));
+		AddKey(KeyDetails(Key::Zero, "0"));
+		AddKey(KeyDetails(Key::One, "1"));
+		AddKey(KeyDetails(Key::Two, "2"));
+		AddKey(KeyDetails(Key::Three, "3"));
+		AddKey(KeyDetails(Key::Four, "4"));
+		AddKey(KeyDetails(Key::Five, "5"));
+		AddKey(KeyDetails(Key::Six, "6"));
+		AddKey(KeyDetails(Key::Seven, "7"));
+		AddKey(KeyDetails(Key::Eight, "8"));
+		AddKey(KeyDetails(Key::Nine, "9"));
 
-		add_key(KeyDetails(Key::NumPadZero, "Num Pad 0"));
-		add_key(KeyDetails(Key::NumPadOne, "Num Pad 1"));
-		add_key(KeyDetails(Key::NumPadTwo, "Num Pad 2"));
-		add_key(KeyDetails(Key::NumPadThree, "Num Pad 3"));
-		add_key(KeyDetails(Key::NumPadFour, "Num Pad 4"));
-		add_key(KeyDetails(Key::NumPadFive, "Num Pad 5"));
-		add_key(KeyDetails(Key::NumPadSix, "Num Pad 6"));
-		add_key(KeyDetails(Key::NumPadSeven, "Num Pad 7"));
-		add_key(KeyDetails(Key::NumPadEight, "Num Pad 8"));
-		add_key(KeyDetails(Key::NumPadNine, "Num Pad 9"));
+		AddKey(KeyDetails(Key::NumPadZero, "Num Pad 0"));
+		AddKey(KeyDetails(Key::NumPadOne, "Num Pad 1"));
+		AddKey(KeyDetails(Key::NumPadTwo, "Num Pad 2"));
+		AddKey(KeyDetails(Key::NumPadThree, "Num Pad 3"));
+		AddKey(KeyDetails(Key::NumPadFour, "Num Pad 4"));
+		AddKey(KeyDetails(Key::NumPadFive, "Num Pad 5"));
+		AddKey(KeyDetails(Key::NumPadSix, "Num Pad 6"));
+		AddKey(KeyDetails(Key::NumPadSeven, "Num Pad 7"));
+		AddKey(KeyDetails(Key::NumPadEight, "Num Pad 8"));
+		AddKey(KeyDetails(Key::NumPadNine, "Num Pad 9"));
 
-		add_key(KeyDetails(Key::Add, "Add"));
-		add_key(KeyDetails(Key::Subtract, "Subtract"));
-		add_key(KeyDetails(Key::Multiply, "Multiply"));
-		add_key(KeyDetails(Key::Divide, "Divide"));
-		add_key(KeyDetails(Key::Decimal, "Decimal"));
+		AddKey(KeyDetails(Key::Add, "Add"));
+		AddKey(KeyDetails(Key::Subtract, "Subtract"));
+		AddKey(KeyDetails(Key::Multiply, "Multiply"));
+		AddKey(KeyDetails(Key::Divide, "Divide"));
+		AddKey(KeyDetails(Key::Decimal, "Decimal"));
 		
-		add_key(KeyDetails(Key::A, "A"));
-		add_key(KeyDetails(Key::B, "B"));
-		add_key(KeyDetails(Key::C, "C"));
-		add_key(KeyDetails(Key::D, "D"));
-		add_key(KeyDetails(Key::E, "E"));
-		add_key(KeyDetails(Key::F, "F"));
-		add_key(KeyDetails(Key::G, "G"));
-		add_key(KeyDetails(Key::H, "H"));
-		add_key(KeyDetails(Key::I, "I"));
-		add_key(KeyDetails(Key::J, "J"));
-		add_key(KeyDetails(Key::K, "K"));
-		add_key(KeyDetails(Key::L, "L"));
-		add_key(KeyDetails(Key::M, "M"));
-		add_key(KeyDetails(Key::N, "N"));
-		add_key(KeyDetails(Key::O, "O"));
-		add_key(KeyDetails(Key::P, "P"));
-		add_key(KeyDetails(Key::Q, "Q"));
-		add_key(KeyDetails(Key::R, "R"));
-		add_key(KeyDetails(Key::S, "S"));
-		add_key(KeyDetails(Key::T, "T"));
-		add_key(KeyDetails(Key::U, "U"));
-		add_key(KeyDetails(Key::V, "V"));
-		add_key(KeyDetails(Key::W, "W"));
-		add_key(KeyDetails(Key::X, "X"));
-		add_key(KeyDetails(Key::Y, "Y"));
-		add_key(KeyDetails(Key::Z, "Z"));
+		AddKey(KeyDetails(Key::A, "A"));
+		AddKey(KeyDetails(Key::B, "B"));
+		AddKey(KeyDetails(Key::C, "C"));
+		AddKey(KeyDetails(Key::D, "D"));
+		AddKey(KeyDetails(Key::E, "E"));
+		AddKey(KeyDetails(Key::F, "F"));
+		AddKey(KeyDetails(Key::G, "G"));
+		AddKey(KeyDetails(Key::H, "H"));
+		AddKey(KeyDetails(Key::I, "I"));
+		AddKey(KeyDetails(Key::J, "J"));
+		AddKey(KeyDetails(Key::K, "K"));
+		AddKey(KeyDetails(Key::L, "L"));
+		AddKey(KeyDetails(Key::M, "M"));
+		AddKey(KeyDetails(Key::N, "N"));
+		AddKey(KeyDetails(Key::O, "O"));
+		AddKey(KeyDetails(Key::P, "P"));
+		AddKey(KeyDetails(Key::Q, "Q"));
+		AddKey(KeyDetails(Key::R, "R"));
+		AddKey(KeyDetails(Key::S, "S"));
+		AddKey(KeyDetails(Key::T, "T"));
+		AddKey(KeyDetails(Key::U, "U"));
+		AddKey(KeyDetails(Key::V, "V"));
+		AddKey(KeyDetails(Key::W, "W"));
+		AddKey(KeyDetails(Key::X, "X"));
+		AddKey(KeyDetails(Key::Y, "Y"));
+		AddKey(KeyDetails(Key::Z, "Z"));
 		
-		add_key(KeyDetails(Key::F1, "F1"));
-		add_key(KeyDetails(Key::F2, "F2"));
-		add_key(KeyDetails(Key::F3, "F3"));
-		add_key(KeyDetails(Key::F4, "F4"));
-		add_key(KeyDetails(Key::F5, "F5"));
-		add_key(KeyDetails(Key::F6, "F6"));
-		add_key(KeyDetails(Key::F7, "F7"));
-		add_key(KeyDetails(Key::F8, "F8"));
-		add_key(KeyDetails(Key::F9, "F9"));
-		add_key(KeyDetails(Key::F10, "F10"));
-		add_key(KeyDetails(Key::F11, "F11"));
-		add_key(KeyDetails(Key::F12, "F12"));
+		AddKey(KeyDetails(Key::F1, "F1"));
+		AddKey(KeyDetails(Key::F2, "F2"));
+		AddKey(KeyDetails(Key::F3, "F3"));
+		AddKey(KeyDetails(Key::F4, "F4"));
+		AddKey(KeyDetails(Key::F5, "F5"));
+		AddKey(KeyDetails(Key::F6, "F6"));
+		AddKey(KeyDetails(Key::F7, "F7"));
+		AddKey(KeyDetails(Key::F8, "F8"));
+		AddKey(KeyDetails(Key::F9, "F9"));
+		AddKey(KeyDetails(Key::F10, "F10"));
+		AddKey(KeyDetails(Key::F11, "F11"));
+		AddKey(KeyDetails(Key::F12, "F12"));
 		
-		add_key(KeyDetails(Key::Tab, "Tab"));
-		add_key(KeyDetails(Key::Enter, "Enter"));
-		add_key(KeyDetails(Key::SpaceBar, "Space Bar"));
-		add_key(KeyDetails(Key::BackSpace, "Backspace"));
-		add_key(KeyDetails(Key::Escape, "Escape"));
+		AddKey(KeyDetails(Key::Tab, "Tab"));
+		AddKey(KeyDetails(Key::Enter, "Enter"));
+		AddKey(KeyDetails(Key::SpaceBar, "Space Bar"));
+		AddKey(KeyDetails(Key::BackSpace, "Backspace"));
+		AddKey(KeyDetails(Key::Escape, "Escape"));
 
-		add_key(KeyDetails(Key::Left, "Left"));
-		add_key(KeyDetails(Key::Right, "Right"));
-		add_key(KeyDetails(Key::Up, "Up"));
-		add_key(KeyDetails(Key::Down, "Down"));
+		AddKey(KeyDetails(Key::Left, "Left"));
+		AddKey(KeyDetails(Key::Right, "Right"));
+		AddKey(KeyDetails(Key::Up, "Up"));
+		AddKey(KeyDetails(Key::Down, "Down"));
 		
-		add_key(KeyDetails(Key::Insert, "Insert"));
-		add_key(KeyDetails(Key::Delete, "Delete"));
-		add_key(KeyDetails(Key::PageUp, "Page Up"));
-		add_key(KeyDetails(Key::PageDown, "Page Down"));
-		add_key(KeyDetails(Key::Home, "Home"));
-		add_key(KeyDetails(Key::End, "End"));
+		AddKey(KeyDetails(Key::Insert, "Insert"));
+		AddKey(KeyDetails(Key::Delete, "Delete"));
+		AddKey(KeyDetails(Key::PageUp, "Page Up"));
+		AddKey(KeyDetails(Key::PageDown, "Page Down"));
+		AddKey(KeyDetails(Key::Home, "Home"));
+		AddKey(KeyDetails(Key::End, "End"));
 		
-		add_key(KeyDetails(Key::CapsLock, "Caps Lock"));
-		add_key(KeyDetails(Key::ScrollLock, "Scroll Lock"));
-		add_key(KeyDetails(Key::NumLock, "Num Lock"));
-		add_key(KeyDetails(Key::PrintScreen, "Print Screen"));
-		add_key(KeyDetails(Key::Pause, "Pause"));
+		AddKey(KeyDetails(Key::CapsLock, "Caps Lock"));
+		AddKey(KeyDetails(Key::ScrollLock, "Scroll Lock"));
+		AddKey(KeyDetails(Key::NumLock, "Num Lock"));
+		AddKey(KeyDetails(Key::PrintScreen, "Print Screen"));
+		AddKey(KeyDetails(Key::Pause, "Pause"));
 
-		add_key(KeyDetails(Key::LeftShift, "Left Shift"));
-		add_key(KeyDetails(Key::RightShift, "Right Shift"));
-		add_key(KeyDetails(Key::LeftControl, "Left Control"));
-		add_key(KeyDetails(Key::RightControl, "Right Control"));
-		add_key(KeyDetails(Key::LeftAlt, "Left Alt"));
-		add_key(KeyDetails(Key::RightAlt, "Right Alt"));
-		add_key(KeyDetails(Key::LeftCommand, "Left Command"));
-		add_key(KeyDetails(Key::RightCommand, "Right Command"));
+		AddKey(KeyDetails(Key::LeftShift, "Left Shift"));
+		AddKey(KeyDetails(Key::RightShift, "Right Shift"));
+		AddKey(KeyDetails(Key::LeftControl, "Left Control"));
+		AddKey(KeyDetails(Key::RightControl, "Right Control"));
+		AddKey(KeyDetails(Key::LeftAlt, "Left Alt"));
+		AddKey(KeyDetails(Key::RightAlt, "Right Alt"));
+		AddKey(KeyDetails(Key::LeftCommand, "Left Command"));
+		AddKey(KeyDetails(Key::RightCommand, "Right Command"));
 		
-		add_key(KeyDetails(Key::Semicolon, "Semicolon"));
-		add_key(KeyDetails(Key::Apostrophe, "Apostrophe"));
-		add_key(KeyDetails(Key::Comma, "Comma"));
-		add_key(KeyDetails(Key::Period, "Period"));
-		add_key(KeyDetails(Key::Hyphen, "Hyphen"));
-		add_key(KeyDetails(Key::Slash, "Slash"));
-		add_key(KeyDetails(Key::BackSlash, "Backslash"));
-		add_key(KeyDetails(Key::Equals, "Equals"));
-		add_key(KeyDetails(Key::LeftBracket, "Left Bracket"));
-		add_key(KeyDetails(Key::RightBracket, "Right Bracket"));
-		add_key(KeyDetails(Key::GraveAccent, "Accent"));
+		AddKey(KeyDetails(Key::Semicolon, "Semicolon"));
+		AddKey(KeyDetails(Key::Apostrophe, "Apostrophe"));
+		AddKey(KeyDetails(Key::Comma, "Comma"));
+		AddKey(KeyDetails(Key::Period, "Period"));
+		AddKey(KeyDetails(Key::Hyphen, "Hyphen"));
+		AddKey(KeyDetails(Key::Slash, "Slash"));
+		AddKey(KeyDetails(Key::BackSlash, "Backslash"));
+		AddKey(KeyDetails(Key::Equals, "Equals"));
+		AddKey(KeyDetails(Key::LeftBracket, "Left Bracket"));
+		AddKey(KeyDetails(Key::RightBracket, "Right Bracket"));
+		AddKey(KeyDetails(Key::GraveAccent, "Accent"));
 		
-		add_key(KeyDetails(Key::Colon, "Colon"));
-		add_key(KeyDetails(Key::Quote, "Quote"));
-		add_key(KeyDetails(Key::Underscore, "Underscore"));
-		add_key(KeyDetails(Key::LeftParantheses, "Left Parantheses"));
-		add_key(KeyDetails(Key::RightParantheses, "Right Parantheses"));
-		add_key(KeyDetails(Key::Ampersand, "Ampersand"));
-		add_key(KeyDetails(Key::Asterix, "Asterix"));
-		add_key(KeyDetails(Key::Caret, "Caret"));
-		add_key(KeyDetails(Key::Dollar, "Dollar"));
-		add_key(KeyDetails(Key::Exclamation, "Exclamation"));
+		AddKey(KeyDetails(Key::Colon, "Colon"));
+		AddKey(KeyDetails(Key::Quote, "Quote"));
+		AddKey(KeyDetails(Key::Underscore, "Underscore"));
+		AddKey(KeyDetails(Key::LeftParantheses, "Left Parantheses"));
+		AddKey(KeyDetails(Key::RightParantheses, "Right Parantheses"));
+		AddKey(KeyDetails(Key::Ampersand, "Ampersand"));
+		AddKey(KeyDetails(Key::Asterix, "Asterix"));
+		AddKey(KeyDetails(Key::Caret, "Caret"));
+		AddKey(KeyDetails(Key::Dollar, "Dollar"));
+		AddKey(KeyDetails(Key::Exclamation, "Exclamation"));
 
 		// init platform keys
-		Input::initialize_keys();
+		Input::InitializeKeys();
 	}
 
-	void Key::add_key(KeyDetails& key_details)
+	void Key::AddKey(KeyDetails& p_keydetails)
 	{
-		VirtualKey& key = key_details.get_key();
-		key._key_details = std::make_shared<KeyDetails>(key_details);
-		_input_keys.insert({ key, key._key_details});
+		VirtualKey& key = p_keydetails.GetKey();
+		key._keydetails = std::make_shared<KeyDetails>(p_keydetails);
+		_inputkeys.insert({ key, key._keydetails});
 	}
 
-	const std::shared_ptr<KeyDetails>& Key::get_key_details(const VirtualKey& key)
+	const std::shared_ptr<KeyDetails>& Key::GetKeyDetails(const VirtualKey& p_key)
 	{
-		auto entry = _input_keys.find(key);
-		if (entry == _input_keys.end())
+		auto entry = _inputkeys.find(p_key);
+		if (entry == _inputkeys.end())
 		{
 			FE_CORE_ERROR("VirtualKey is not registered (has no key details)!");
 			return std::shared_ptr<KeyDetails>();

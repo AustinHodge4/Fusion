@@ -2,21 +2,21 @@
 
 #include "renderer.h"
 
-namespace fusion {
+namespace Fusion {
 
-	void Renderer::begin_scene()
+	void Renderer::BeginScene()
 	{
 
 	}
 
-	void Renderer::end_scene()
+	void Renderer::EndScene()
 	{
 
 	}
 
-	void Renderer::submit(const std::shared_ptr<VertexArray>& vertex_array)
+	void Renderer::Submit(const std::shared_ptr<VertexArray>& p_vertexArray)
 	{
-		vertex_array->bind();
-		RenderCommand::draw_indexed(vertex_array);
+		p_vertexArray->Bind();
+		RenderCommand::DrawIndexed(p_vertexArray);
 	}
 }

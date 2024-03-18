@@ -7,23 +7,18 @@
 
 #include "platform/opengl/opengl_context.h"
 
-namespace fusion {
+namespace Fusion {
 
-	static bool _glfw_initialized = false;
+	static bool _glfwInitialized = false;
 
-	static void glfw_error_callback(int error, const char* description)
+	static void glfwErrorCallback(int p_error, const char* p_description)
 	{
-		FE_CORE_ERROR("glfw error ({0}): {1}", error, description);
+		FE_CORE_ERROR("glfw error ({0}): {1}", p_error, p_description);
 	}
 
-	Window* Window::create(const WindowProps& props)
+	WindowsWindow::WindowsWindow(const WindowProps& p_props)
 	{
-		return new WindowsWindow(props);
-	}
-
-	WindowsWindow::WindowsWindow(const WindowProps& props)
-	{
-		init(props);
+		Initialize(p_props);
 	}
 
 	WindowsWindow::~WindowsWindow() 
@@ -31,75 +26,75 @@ namespace fusion {
 		shutdown();
 	}
 
-	void WindowsWindow::init(const WindowProps& props)
+	void WindowsWindow::Initialize(const WindowProps& p_props)
 	{
-		_data.title = props.title;
-		_data.width = props.width;
-		_data.height = props.height;
+		_data.title = p_props.title;
+		_data.width = p_props.width;
+		_data.height = p_props.height;
 
-		FE_CORE_INFO("Creating window {0} ({1}, {2})", props.title, props.width, props.height);
+		FE_CORE_INFO("Creating window {0} ({1}, {2})", p_props.title, p_props.width, p_props.height);
 
-		if (!_glfw_initialized) {
+		if (!_glfwInitialized) {
 			int success = glfwInit();
 			FE_CORE_ASSERT(success, "Could not init glfw!");
-			glfwSetErrorCallback(glfw_error_callback);
+			glfwSetErrorCallback(glfwErrorCallback);
 
-			_glfw_initialized = true;
+			_glfwInitialized = true;
 		}
 
-		_window = glfwCreateWindow((int)props.width, (int)props.height, _data.title.c_str(), nullptr, nullptr);
+		_window = glfwCreateWindow((int)p_props.width, (int)p_props.height, _data.title.c_str(), nullptr, nullptr);
 
-		_context = GraphicsContext::create(_window);
-		_context->init();
+		_context = GraphicsContext::Create(_window);
+		_context->Initialize();
 
 		glfwSetWindowUserPointer(_window, &_data);
-		set_vsync(true);
+		SetVsync(true);
 
 		// set glfw callbacks
 		glfwSetWindowSizeCallback(_window, 
-			[](GLFWwindow* window, int width, int height)
+			[](GLFWwindow* p_window, int p_width, int p_height)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				data.width = width;
-				data.height = height;
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_window);
+				data.width = p_width;
+				data.height = p_height;
 
-				WindowResizeEvent event(width, height);
-				data.event_callback(event);
+				WindowResizeEvent event(p_width, p_height);
+				data.eventCallback(event);
 			}
 		);
 
 		glfwSetWindowCloseCallback(_window,
-			[](GLFWwindow* window)
+			[](GLFWwindow* p_window)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_window);
 
 				WindowCloseEvent event;
-				data.event_callback(event);
+				data.eventCallback(event);
 			}
 		);
 
 		glfwSetKeyCallback(_window,
-			[](GLFWwindow* window, int key, int scancode, int action, int mods)
+			[](GLFWwindow* p_window, int p_key, int p_scancode, int p_action, int p_mods)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_window);
 
-				switch (action) {
+				switch (p_action) {
 					case GLFW_PRESS:
 					{
-						KeyPressedEvent event(key, 0);
-						data.event_callback(event);
+						KeyPressedEvent event(p_key, 0);
+						data.eventCallback(event);
 						break;
 					}
 					case GLFW_RELEASE:
 					{
-						KeyReleasedEvent event(key);
-						data.event_callback(event);
+						KeyReleasedEvent event(p_key);
+						data.eventCallback(event);
 						break;
 					}
 					case GLFW_REPEAT:
 					{
-						KeyPressedEvent event(key, 1);
-						data.event_callback(event);
+						KeyPressedEvent event(p_key, 1);
+						data.eventCallback(event);
 						break;
 					}
 				}
@@ -107,32 +102,32 @@ namespace fusion {
 		);
 
 		glfwSetCharCallback(_window,
-			[](GLFWwindow* window, unsigned int keycode)
+			[](GLFWwindow* p_window, unsigned int p_keycode)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_window);
 
-				KeyTypedEvent event(keycode);
-				data.event_callback(event);
+				KeyTypedEvent event(p_keycode);
+				data.eventCallback(event);
 			}
 		);
 
 		glfwSetMouseButtonCallback(_window,
-			[](GLFWwindow* window, int button, int action, int mods)
+			[](GLFWwindow* p_window, int p_button, int p_action, int p_mods)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_window);
 
-				switch (action)
+				switch (p_action)
 				{
 					case GLFW_PRESS:
 					{
-						MouseButtonPressedEvent event(button);
-						data.event_callback(event);
+						MouseButtonPressedEvent event(p_button);
+						data.eventCallback(event);
 						break;
 					}
 					case GLFW_RELEASE:
 					{
-						MouseButtonReleasedEvent event(button);
-						data.event_callback(event);
+						MouseButtonReleasedEvent event(p_button);
+						data.eventCallback(event);
 						break;
 					}
 				}
@@ -140,22 +135,22 @@ namespace fusion {
 		);
 
 		glfwSetScrollCallback(_window,
-			[](GLFWwindow* window, double offset_x, double offset_y)
+			[](GLFWwindow* p_window, double p_offsetX, double p_offsetY)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_window);
 
-				MouseScrolledEvent event((float)offset_x, (float)offset_y);
-				data.event_callback(event);
+				MouseScrolledEvent event((float)p_offsetX, (float)p_offsetY);
+				data.eventCallback(event);
 			}
 		);
 
 		glfwSetCursorPosCallback(_window,
-			[](GLFWwindow* window, double pos_x, double pos_y)
+			[](GLFWwindow* p_window, double p_posX, double p_posY)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(p_window);
 
-				MouseMovedEvent event((float)pos_x, (float)pos_y);
-				data.event_callback(event);
+				MouseMovedEvent event((float)p_posX, (float)p_posY);
+				data.eventCallback(event);
 			}
 		);
 	}
@@ -165,25 +160,25 @@ namespace fusion {
 		glfwDestroyWindow(_window);
 	}
 
-	void WindowsWindow::on_update()
+	void WindowsWindow::OnUpdate()
 	{
 		glfwPollEvents();
-		_context->swap_buffers();
+		_context->SwapBuffers();
 	}
 
-	void WindowsWindow::set_vsync(bool enabled)
+	void WindowsWindow::SetVsync(bool p_enabled)
 	{
-		if (enabled) {
+		if (p_enabled) {
 			glfwSwapInterval(1);
 		}
 		else {
 			glfwSwapInterval(0);
 		}
 
-		_data.vsync = enabled;
+		_data.vsync = p_enabled;
 	}
 
-	bool WindowsWindow::is_vsync() const
+	bool WindowsWindow::IsVsync() const
 	{
 		return _data.vsync;
 	}
