@@ -1,6 +1,7 @@
 #include <fusion.h>
 
 #include <imgui.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 class ExampleLayer : public Fusion::Layer
 {
@@ -38,7 +39,7 @@ public:
 class RenderLayer : public Fusion::Layer
 {
 public:
-	RenderLayer() : Layer("Render") 
+	RenderLayer() : Layer("Render"), _camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		_vertexArray.reset(Fusion::VertexArray::Create());
 
@@ -70,14 +71,14 @@ public:
 			#version 460 core
 			layout(location = 0) in vec3 inPosition;
 			layout(location = 1) in vec3 inColor;
+
+			uniform mat4 u_viewProjection;
 			
-			out vec3 v_position;
-			out vec3 v_color;
+			out vec3 o_color;
 
 			void main() {
-				v_position = inPosition;
-				v_color = inColor;
-				gl_Position = vec4(inPosition, 1.0);
+				o_color = inColor;
+				gl_Position = u_viewProjection * vec4(inPosition, 1.0);
 			}
 		)";
 
@@ -85,15 +86,15 @@ public:
 			#version 460 core
 			layout(location = 0) out vec4 color;
 
-			in vec3 v_position;
-			in vec3 v_color;
+			in vec3 o_color;
 
 			void main() {
-				color = vec4(v_color, 1.0);
+				color = vec4(o_color, 1.0);
 			}
 		)";
 
 		_shader.reset(Fusion::Shader::Create("base", vertexShader, fragmentShader));
+		
 	}
 
 	~RenderLayer() 
@@ -107,17 +108,45 @@ public:
 		Fusion::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Fusion::RenderCommand::Clear();
 
-		Fusion::Renderer::BeginScene();
+		_camera.SetPosition(_cameraPos);
+		_camera.SetRotation(_rotation);
+
+		Fusion::Renderer::BeginScene(_camera);
 		{
-			_shader->Bind();
-			Fusion::Renderer::Submit(_vertexArray);
+			Fusion::Renderer::Submit(_shader, _vertexArray);
 		}
 		Fusion::Renderer::EndScene();
 	}
+
+	void OnEvent(Fusion::Event& p_event) override
+	{
+		if (p_event.GetEventType() == Fusion::EventType::KeyPressed) {
+			Fusion::KeyPressedEvent& event = (Fusion::KeyPressedEvent&)p_event;
+			if (event.GetKey() == Fusion::Key::Q) 
+			{
+				_rotation -= 1.0f;
+			}
+			if (event.GetKey() == Fusion::Key::E)
+			{
+				_rotation += 1.0f;
+			}
+		}
+		if (p_event.GetEventType() == Fusion::EventType::MouseMoved)
+		{
+			Fusion::MouseMovedEvent& event = (Fusion::MouseMovedEvent&)p_event;
+			float x = event.GetX() / Fusion::Application::Get().GetWindow().GetWidth();
+			float y = event.GetY() / Fusion::Application::Get().GetWindow().GetHeight();
+			_cameraPos = { (-2.0f * x) + 1.0f, (2.0f * y) - 1.0f, 0.0f};
+		}
+	}
+
 private:
 	std::shared_ptr<Fusion::VertexArray> _vertexArray;
+	std::shared_ptr<Fusion::Shader> _shader;
+	Fusion::OrthographicCamera _camera;
 
-	std::unique_ptr<Fusion::Shader> _shader;
+	float _rotation = 0.0f;
+	glm::vec3 _cameraPos = glm::vec3(0.0f);
 };
 
 class Sandbox : public Fusion::Application

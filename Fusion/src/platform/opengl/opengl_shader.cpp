@@ -2,6 +2,8 @@
 #include "opengl_shader.h"
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Fusion {
 
@@ -121,5 +123,11 @@ namespace Fusion {
 	void OpenGLShader::Unbind() const
 	{
 		glUseProgram(0);
+	}
+
+	void OpenGLShader::SetMat4(const std::string& p_name, const glm::mat4& value)
+	{
+		uint32_t uniformID = glGetUniformLocation(_rendererID, p_name.c_str());
+		glUniformMatrix4fv(uniformID, 1, GL_FALSE, glm::value_ptr(value));
 	}
 }

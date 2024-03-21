@@ -15,4 +15,6 @@
 #include "fusion/renderer/buffer.h"
 #include "fusion/renderer/vertex_array.h"
 
+#include "fusion/renderer/camera.h"
+
 #include "fusion/entrypoint.h"

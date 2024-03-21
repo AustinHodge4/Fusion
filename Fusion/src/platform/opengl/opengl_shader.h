@@ -14,6 +14,8 @@ namespace Fusion {
 		virtual void Unbind() const override;
 
 		virtual inline const std::string& GetName() const override { return _name; }
+
+		virtual void SetMat4(const std::string& p_name, const glm::mat4& value) override;
 	private:
 		uint32_t _rendererID;
 		std::string _name;

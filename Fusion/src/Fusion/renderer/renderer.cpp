@@ -1,12 +1,13 @@
 #include "fepch.h"
-
 #include "renderer.h"
 
 namespace Fusion {
 
-	void Renderer::BeginScene()
-	{
+	Renderer::SceneData* Renderer::_sceneData = new Renderer::SceneData;
 
+	void Renderer::BeginScene(OrthographicCamera& p_camera)
+	{
+		_sceneData->viewProjectionMatrix = p_camera.GetViewProjectionMatrix();
 	}
 
 	void Renderer::EndScene()
@@ -14,8 +15,11 @@ namespace Fusion {
 
 	}
 
-	void Renderer::Submit(const std::shared_ptr<VertexArray>& p_vertexArray)
+	void Renderer::Submit(const std::shared_ptr<Shader> p_shader, const std::shared_ptr<VertexArray>& p_vertexArray)
 	{
+		p_shader->Bind();
+		p_shader->SetMat4("u_viewProjection", _sceneData->viewProjectionMatrix);
+
 		p_vertexArray->Bind();
 		RenderCommand::DrawIndexed(p_vertexArray);
 	}
