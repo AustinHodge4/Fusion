@@ -2,7 +2,6 @@
 #include "input_keys.h"
 
 #include "input.h"
-#include "platform/platform_input_manager.h"
 
 namespace Fusion {
 
@@ -307,8 +306,8 @@ namespace Fusion {
 		auto entry = _inputkeys.find(p_key);
 		if (entry == _inputkeys.end())
 		{
-			FE_CORE_ERROR("VirtualKey is not registered (has no key details)!");
-			return std::shared_ptr<KeyDetails>();
+			FE_CORE_ASSERT(false, "VirtualKey is not registered (has no key details)!");
+			return nullptr;
 		}
 		return entry->second;
 	}

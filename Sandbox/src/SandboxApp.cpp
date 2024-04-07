@@ -2,13 +2,14 @@
 
 #include <imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class ExampleLayer : public Fusion::Layer
 {
 public:
 	ExampleLayer() : Layer("Example") {}
 
-	void OnUpdate() override
+	void OnUpdate(Fusion::Timestep p_timestep) override
 	{
 		if (Fusion::Input::IsKeyPressed(Fusion::Key::W))
 		{
@@ -73,12 +74,13 @@ public:
 			layout(location = 1) in vec3 inColor;
 
 			uniform mat4 u_viewProjection;
+			uniform mat4 u_transform;
 			
 			out vec3 o_color;
 
 			void main() {
 				o_color = inColor;
-				gl_Position = u_viewProjection * vec4(inPosition, 1.0);
+				gl_Position = u_viewProjection * u_transform * vec4(inPosition, 1.0);
 			}
 		)";
 
@@ -87,9 +89,10 @@ public:
 			layout(location = 0) out vec4 color;
 
 			in vec3 o_color;
+			uniform vec4 u_color;
 
 			void main() {
-				color = vec4(o_color, 1.0);
+				color = u_color;
 			}
 		)";
 
@@ -103,8 +106,23 @@ public:
 		_shader->Unbind();
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Fusion::Timestep p_timestep) override
 	{
+		//FE_TRACE("Delta time: {0}s", p_timestep.GetSeconds());
+
+		if (Fusion::Input::IsKeyPressed(Fusion::Key::Q))
+		{
+			_rotation -= 60.0f * p_timestep;
+		}
+		else if (Fusion::Input::IsKeyPressed(Fusion::Key::E))
+		{
+			_rotation += 60.0f * p_timestep;
+		}
+
+		/*float x = Fusion::Input::GetMouseX() / Fusion::Application::Get().GetWindow().GetWidth();
+		float y = Fusion::Input::GetMouseY() / Fusion::Application::Get().GetWindow().GetHeight();
+		_cameraPos = { (-2.0f * x) + 1.0f, (2.0f * y) - 1.0f, 0.0f };*/
+
 		Fusion::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Fusion::RenderCommand::Clear();
 
@@ -113,31 +131,33 @@ public:
 
 		Fusion::Renderer::BeginScene(_camera);
 		{
-			Fusion::Renderer::Submit(_shader, _vertexArray);
+			_shader->Bind();
+			_shader->SetFloat4("u_color", _color);
+
+			static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+			for (int y = -10; y < 10; y++)
+			{
+				for (int x = -10; x < 10; x++)
+				{
+					glm::vec3 pos = { x * 0.11f, y* 0.11f, 0.0f };
+					glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+					Fusion::Renderer::Submit(_shader, _vertexArray, transform);
+				}
+			}
 		}
 		Fusion::Renderer::EndScene();
 	}
 
+	void OnImguiRender() override
+	{
+		ImGui::Begin("test");
+		ImGui::Text("Hello world :)");
+		ImGui::ColorEdit4("Colors!", glm::value_ptr(_color));
+		ImGui::End();
+	}
+
 	void OnEvent(Fusion::Event& p_event) override
 	{
-		if (p_event.GetEventType() == Fusion::EventType::KeyPressed) {
-			Fusion::KeyPressedEvent& event = (Fusion::KeyPressedEvent&)p_event;
-			if (event.GetKey() == Fusion::Key::Q) 
-			{
-				_rotation -= 1.0f;
-			}
-			if (event.GetKey() == Fusion::Key::E)
-			{
-				_rotation += 1.0f;
-			}
-		}
-		if (p_event.GetEventType() == Fusion::EventType::MouseMoved)
-		{
-			Fusion::MouseMovedEvent& event = (Fusion::MouseMovedEvent&)p_event;
-			float x = event.GetX() / Fusion::Application::Get().GetWindow().GetWidth();
-			float y = event.GetY() / Fusion::Application::Get().GetWindow().GetHeight();
-			_cameraPos = { (-2.0f * x) + 1.0f, (2.0f * y) - 1.0f, 0.0f};
-		}
 	}
 
 private:
@@ -147,6 +167,7 @@ private:
 
 	float _rotation = 0.0f;
 	glm::vec3 _cameraPos = glm::vec3(0.0f);
+	glm::vec4 _color = glm::vec4(1.0f);
 };
 
 class Sandbox : public Fusion::Application
@@ -154,7 +175,7 @@ class Sandbox : public Fusion::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
 		PushLayer(new RenderLayer());
 	}
 

@@ -1,6 +1,8 @@
 #pragma once
 
-#include "fusion/core.h"
+#include "fusion/core/core.h"
+
+#include <sstream>
 
 namespace Fusion {
 

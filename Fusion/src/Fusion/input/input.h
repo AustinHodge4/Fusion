@@ -1,13 +1,22 @@
 #pragma once
 
-#include "fusion/core.h"
-
 #include "input_keys.h"
-#include "platform/platform_input_manager.h"
 
 namespace Fusion {
 
 	class KeyEvent;
+
+	class PlatformInput
+	{
+	public:
+		static bool IsKeyPressedImpl(const VirtualKey& p_keycode);
+		static bool IsMouseButtonPressedImpl(const VirtualKey& p_button);
+		static std::pair<float, float> GetMousePosImpl();
+		static float GetMouseXImpl();
+		static float GetMouseYImpl();
+
+		static unsigned int GetPlatformKeys(unsigned int* p_keycodes, std::string* p_keynames);
+	};
 
 	class FUSION_API Input 
 	{
@@ -30,4 +39,6 @@ namespace Fusion {
 	private:
 		static std::unordered_map<int, VirtualKey> _keymap;
 	};
+
+
 }

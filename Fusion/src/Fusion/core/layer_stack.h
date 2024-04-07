@@ -1,7 +1,8 @@
 #pragma once
 
-#include "core.h"
 #include "layer.h"
+
+#include <vector>
 
 namespace Fusion {
 

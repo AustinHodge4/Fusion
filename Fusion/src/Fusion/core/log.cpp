@@ -1,6 +1,7 @@
 #include "fepch.h"
+#include "log.h"
 
-#include "spdlog/sinks/stdout_color_sinks.h"
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace Fusion {
 	std::shared_ptr<spdlog::logger> Log::_coreLogger;

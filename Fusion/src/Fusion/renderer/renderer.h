@@ -13,7 +13,7 @@ namespace Fusion {
 		static void BeginScene(OrthographicCamera& p_camera);
 		static void EndScene();
 
-		static void Submit(const std::shared_ptr<Shader> p_shader, const std::shared_ptr<VertexArray>& p_vertexArray);
+		static void Submit(const std::shared_ptr<Shader> p_shader, const std::shared_ptr<VertexArray>& p_vertexArray, const glm::mat4& transform);
 
 		inline static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 	private:

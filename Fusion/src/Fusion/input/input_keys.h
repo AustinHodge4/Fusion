@@ -1,10 +1,9 @@
 #pragma once
 
-#include "fepch.h"
-#include "fusion/core.h"
-
 #include "fusion/input/virtual_key.h"
 #include "fusion/input/key_details.h"
+
+#include <map>
 
 namespace Fusion {
 

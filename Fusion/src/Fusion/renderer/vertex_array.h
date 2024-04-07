@@ -1,8 +1,8 @@
 #pragma once
 
-#include <memory>
-
 #include "buffer.h"
+
+#include <memory>
 
 namespace Fusion {
 	class VertexArray

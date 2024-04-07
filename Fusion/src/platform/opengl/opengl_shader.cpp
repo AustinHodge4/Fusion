@@ -125,6 +125,36 @@ namespace Fusion {
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetInt(const std::string& p_name, int value)
+	{
+		int32_t uniformID = glGetUniformLocation(_rendererID, p_name.c_str());
+		glUniform1i(uniformID, value);
+	}
+
+	void OpenGLShader::SetFloat(const std::string& p_name, float value)
+	{
+		int32_t uniformID = glGetUniformLocation(_rendererID, p_name.c_str());
+		glUniform1f(uniformID, value);
+	}
+
+	void OpenGLShader::SetFloat2(const std::string& p_name, const glm::vec2& value)
+	{
+		int32_t uniformID = glGetUniformLocation(_rendererID, p_name.c_str());
+		glUniform2f(uniformID, value.x, value.y);
+	}
+
+	void OpenGLShader::SetFloat3(const std::string& p_name, const glm::vec3& value)
+	{
+		int32_t uniformID = glGetUniformLocation(_rendererID, p_name.c_str());
+		glUniform3f(uniformID, value.x, value.y, value.z);
+	}
+
+	void OpenGLShader::SetFloat4(const std::string& p_name, const glm::vec4& value)
+	{
+		int32_t uniformID = glGetUniformLocation(_rendererID, p_name.c_str());
+		glUniform4f(uniformID, value.x, value.y, value.z, value.w);
+	}
+
 	void OpenGLShader::SetMat4(const std::string& p_name, const glm::mat4& value)
 	{
 		uint32_t uniformID = glGetUniformLocation(_rendererID, p_name.c_str());

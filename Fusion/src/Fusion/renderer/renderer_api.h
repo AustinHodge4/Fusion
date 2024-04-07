@@ -1,8 +1,8 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "vertex_array.h"
+
+#include <glm/glm.hpp>
 
 namespace Fusion {
 

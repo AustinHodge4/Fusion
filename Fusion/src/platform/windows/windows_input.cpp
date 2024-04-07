@@ -1,26 +1,25 @@
 #include "fepch.h"
-#include "windows_input.h"
 
-#include "fusion/application.h"
+#include "fusion/core/application.h"
 #include "fusion/input/input.h"
 
 #include <GLFW/glfw3.h>
 
 namespace Fusion {
 
-	bool WindowsInput::IsKeyPressedImpl(const VirtualKey& p_keycode)
+	bool PlatformInput::IsKeyPressedImpl(const VirtualKey& p_keycode)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetKey(window, Input::GetCodesFromKey(p_keycode));
 		return state == GLFW_PRESS || state == GLFW_REPEAT;
 	}
-	bool WindowsInput::IsMouseButtonPressedImpl(const VirtualKey& p_button)
+	bool PlatformInput::IsMouseButtonPressedImpl(const VirtualKey& p_button)
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		auto state = glfwGetMouseButton(window, Input::GetCodesFromKey(p_button));
 		return state == GLFW_PRESS;
 	}
-	std::pair<float, float> WindowsInput::GetMousePosImpl()
+	std::pair<float, float> PlatformInput::GetMousePosImpl()
 	{
 		auto window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
 		double posX, posY;
@@ -28,19 +27,19 @@ namespace Fusion {
 		return { (float)posX, (float)posY };
 	}
 
-	float WindowsInput::GetMouseXImpl()
+	float PlatformInput::GetMouseXImpl()
 	{
 		auto [x, y] = GetMousePosImpl();
 		return x;
 	}
 
-	float WindowsInput::GetMouseYImpl()
+	float PlatformInput::GetMouseYImpl()
 	{
 		auto [x, y] = GetMousePosImpl();
 		return y;
 	}
 
-	unsigned int WindowsInput::GetPlatformKeys(unsigned int* p_keycodes, std::string* p_keynames)
+	unsigned int PlatformInput::GetPlatformKeys(unsigned int* p_keycodes, std::string* p_keynames)
 	{
 	#define ADDKEY(code, name) if (numberOfMappings<256) { p_keycodes[numberOfMappings] = code; p_keynames[numberOfMappings] = name; ++numberOfMappings;};
 		

@@ -38,6 +38,7 @@ namespace Fusion {
 			int success = glfwInit();
 			FE_CORE_ASSERT(success, "Could not init glfw!");
 			glfwSetErrorCallback(glfwErrorCallback);
+			glfwWindowHint(GLFW_CONTEXT_DEBUG, GLFW_TRUE);
 
 			_glfwInitialized = true;
 		}

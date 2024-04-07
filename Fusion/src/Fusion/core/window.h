@@ -1,9 +1,6 @@
 #pragma once
 
-#include "fepch.h"
-
-#include "core.h"
-#include "events/event.h"
+#include "fusion/events/event.h"
 
 namespace Fusion {
 

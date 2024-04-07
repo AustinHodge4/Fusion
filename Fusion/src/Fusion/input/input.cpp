@@ -1,8 +1,6 @@
 #include "fepch.h"
 #include "input.h"
 
-#include "input_keys.h"
-
 namespace Fusion {
 
 	std::unordered_map<int, VirtualKey> Input::_keymap;

@@ -67,12 +67,21 @@ project "Fusion"
         "_CRT_SECURE_NO_WARNINGS"
     }
 
-    filter "system:windows"
+    filter "system:Windows"
         systemversion "latest"
 
         defines 
         {
             "FE_PLATFORM_WINDOWS",
+            "FE_BUILD_DLL"
+        }
+
+    filter "system:Linux"
+        systemversion "latest"
+
+        defines 
+        {
+            "FE_PLATFORM_LINUX",
             "FE_BUILD_DLL"
         }
     
@@ -122,12 +131,20 @@ project "Sandbox"
         "Fusion"
     }
 
-    filter "system:windows"
+    filter "system:Windows"
         systemversion "latest"
 
         defines 
         {
             "FE_PLATFORM_WINDOWS"
+        }
+
+    filter "system:Linux"
+        systemversion "latest"
+
+        defines 
+        {
+            "FE_PLATFORM_LINUX"
         }
     
     filter "configurations:Debug"

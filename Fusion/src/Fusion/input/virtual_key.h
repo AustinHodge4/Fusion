@@ -1,7 +1,5 @@
 #pragma once
 
-#include "fusion/core.h"
-
 namespace Fusion {
 	class KeyDetails;
 

@@ -6,7 +6,7 @@
 #include <backends/imgui_impl_opengl3.h>
 #include <backends/imgui_impl_glfw.h>
 
-#include "fusion/application.h"
+#include "fusion/core/application.h"
 
 // Temporary
 #include <glad/glad.h>

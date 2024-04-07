@@ -1,7 +1,6 @@
 #pragma once
 
-#include "fusion/core.h"
-#include "fusion/layer.h"
+#include "fusion/core/layer.h"
 
 #include "fusion/events/application_event.h"
 #include "fusion/events/key_event.h"

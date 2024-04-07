@@ -1,6 +1,6 @@
 #pragma once
 
-#include "fusion/window.h"
+#include "fusion/core/window.h"
 
 #include "fusion/renderer/graphics_context.h"
 

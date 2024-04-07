@@ -1,6 +1,5 @@
 #pragma once
 
-#include "fusion/core.h"
 #include "virtual_key.h"
 
 namespace Fusion {

@@ -1,7 +1,9 @@
 #include "fepch.h"
 #include "application.h"
 
-#include "input/input.h"
+#include "fusion/input/input.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Fusion {
 
@@ -38,9 +40,14 @@ namespace Fusion {
 	{		
 		while (_running)
 		{
+			// TODO: do semi-fixed timestep
+			float time = (float)glfwGetTime();
+			Timestep timestep = time - _lastFrameTime;
+			_lastFrameTime = time;
+
 			for (Layer* layer : _layerStack)
 			{
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 			}
 
 			_imguiLayer->Begin();

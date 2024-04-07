@@ -1,7 +1,7 @@
 #pragma once
 
-#include "core.h"
-#include "events/event.h"
+#include "fusion/events/event.h"
+#include "timestep.h"
 
 namespace Fusion {
 
@@ -13,7 +13,7 @@ namespace Fusion {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep p_timestep) {}
 		virtual void OnImguiRender() {}
 		virtual void OnEvent(Event& p_event) {}
 

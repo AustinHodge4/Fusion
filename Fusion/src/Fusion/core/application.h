@@ -1,14 +1,14 @@
 #pragma once
 
-#include "core.h"
-
 #include "window.h"
 
-#include "events/event.h"
-#include "events/application_event.h"
+#include "fusion/events/event.h"
+#include "fusion/events/application_event.h"
 
 #include "layer_stack.h"
-#include "imgui/imgui_layer.h"
+#include "fusion/imgui/imgui_layer.h"
+
+#include "timestep.h"
 
 namespace Fusion {
 
@@ -38,6 +38,8 @@ namespace Fusion {
 
 		bool _running = true;
 		LayerStack _layerStack;
+
+		float _lastFrameTime = 0.0f;
 	};
 
 	Application* CreateApp();

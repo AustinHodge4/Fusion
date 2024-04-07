@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef FE_PLATFORM_WINDOWS
+#if defined(FE_PLATFORM_WINDOWS) || defined(FE_PLATFORM_LINUX)
 #if FE_DYNAMIC_LINK
 	#ifdef FE_BUILD_DLL
 		#define FUSION_API __declspec(dllexport)
@@ -29,3 +29,5 @@
 #define BIT(x) (1 << x)
 
 #define FE_BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
+
+#include "log.h"
