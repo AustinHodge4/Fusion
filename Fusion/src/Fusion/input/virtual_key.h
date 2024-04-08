@@ -16,6 +16,7 @@ namespace Fusion {
 		bool IsMouseButton() const;
 
 		inline const std::string& GetName() const { return _name; }
+		inline const Ref<KeyDetails> GetDetails() const { return _keydetails; }
 
 		inline bool operator==(const VirtualKey& p_key) const { return this->_name == p_key._name; }
 		inline bool operator!=(const VirtualKey& p_key) { return this->_name != p_key._name; }

@@ -145,7 +145,7 @@ namespace Fusion {
 	const VirtualKey Key::Exclamation("Exclamation");
 	
 	bool Key::_initialized = false;
-	std::map<VirtualKey, Ref<KeyDetails>> Key::_inputkeys;
+	std::vector<VirtualKey> Key::_inputkeys;
 
 	void Key::Initialize()
 	{
@@ -298,17 +298,17 @@ namespace Fusion {
 	{
 		VirtualKey& key = p_keydetails.GetKey();
 		key._keydetails = CreateRef<KeyDetails>(p_keydetails);
-		_inputkeys.insert({ key, key._keydetails});
+		_inputkeys.push_back(key);
 	}
 
-	const Ref<KeyDetails>& Key::GetKeyDetails(const VirtualKey& p_key)
+	const Ref<KeyDetails> Key::GetKeyDetails(const VirtualKey& p_key)
 	{
-		auto entry = _inputkeys.find(p_key);
+		auto entry = std::find(_inputkeys.begin(), _inputkeys.end(), p_key);
 		if (entry == _inputkeys.end())
 		{
 			FE_CORE_ASSERT(false, "VirtualKey is not registered (has no key details)!");
 			return nullptr;
 		}
-		return entry->second;
+		return entry->GetDetails();
 	}
 }

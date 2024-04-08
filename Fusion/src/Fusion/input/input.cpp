@@ -28,6 +28,7 @@ namespace Fusion {
 
 	void Input::InitializeKeys()
 	{
+		// Only supporting 256 keys for the platform right now
 		unsigned int keycodes[256];
 		std::string keynames[256];
 
