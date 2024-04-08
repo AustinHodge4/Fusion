@@ -19,7 +19,7 @@ namespace Fusion {
 		virtual void SetClearColor(const glm::vec4& p_color) = 0;
 		virtual void Clear() = 0;
 
-		virtual void DrawIndexed(const std::shared_ptr<VertexArray>& p_vertexArray) = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& p_vertexArray) = 0;
 
 		inline static API GetAPI() { return _api; }
 	private:

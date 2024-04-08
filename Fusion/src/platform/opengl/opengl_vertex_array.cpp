@@ -46,7 +46,7 @@ namespace Fusion {
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& p_vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(const Ref<VertexBuffer>& p_vertexBuffer)
 	{
 		FE_CORE_ASSERT(p_vertexBuffer->GetLayout().GetElements().size(), "Vertex buffer has no layout!");
 
@@ -66,7 +66,7 @@ namespace Fusion {
 		_vertexBuffers.push_back(p_vertexBuffer);
 	}
 
-	void OpenGLVertexArray::SetIndexBuffer(const std::shared_ptr<IndexBuffer>& p_indexBuffer)
+	void OpenGLVertexArray::SetIndexBuffer(const Ref<IndexBuffer>& p_indexBuffer)
 	{
 		p_indexBuffer->Bind(_rendererID);
 		_indexBuffer = p_indexBuffer;

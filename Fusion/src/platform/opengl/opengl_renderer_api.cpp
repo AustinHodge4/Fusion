@@ -15,7 +15,7 @@ namespace Fusion {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void OpenGLRendererAPI::DrawIndexed(const std::shared_ptr<VertexArray>& p_vertexArray)
+	void OpenGLRendererAPI::DrawIndexed(const Ref<VertexArray>& p_vertexArray)
 	{
 		glDrawElements(GL_TRIANGLES, p_vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}

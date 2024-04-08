@@ -49,7 +49,7 @@ public:
 			0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,
 			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
 		};
-		std::shared_ptr<Fusion::VertexBuffer> vertexBuffer;
+		Fusion::Ref<Fusion::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Fusion::VertexBuffer::Create(vertices, sizeof(vertices)));
 		{
 			Fusion::BufferLayout layout = {
@@ -62,7 +62,7 @@ public:
 		_vertexArray->AddVertexBuffer(vertexBuffer);
 
 		uint32_t indices[3] = { 0, 1, 2 };
-		std::shared_ptr<Fusion::IndexBuffer> indexBuffer;
+		Fusion::Ref<Fusion::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Fusion::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		_vertexArray->SetIndexBuffer(indexBuffer);
 
@@ -161,8 +161,8 @@ public:
 	}
 
 private:
-	std::shared_ptr<Fusion::VertexArray> _vertexArray;
-	std::shared_ptr<Fusion::Shader> _shader;
+	Fusion::Ref<Fusion::VertexArray> _vertexArray;
+	Fusion::Ref<Fusion::Shader> _shader;
 	Fusion::OrthographicCamera _camera;
 
 	float _rotation = 0.0f;

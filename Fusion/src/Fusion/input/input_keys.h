@@ -153,11 +153,11 @@ namespace Fusion {
 		static void Initialize();
 		static void AddKey(KeyDetails& p_keydetails);
 
-		static const std::shared_ptr<KeyDetails>& GetKeyDetails(const VirtualKey& p_key);
+		static const Ref<KeyDetails>& GetKeyDetails(const VirtualKey& p_key);
 
 	private:
 		static bool _initialized;
 
-		static std::map<VirtualKey, std::shared_ptr<KeyDetails>> _inputkeys;
+		static std::map<VirtualKey, Ref<KeyDetails>> _inputkeys;
 	};
 }

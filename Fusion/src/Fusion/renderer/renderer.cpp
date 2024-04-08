@@ -15,7 +15,7 @@ namespace Fusion {
 
 	}
 
-	void Renderer::Submit(const std::shared_ptr<Shader> p_shader, const std::shared_ptr<VertexArray>& p_vertexArray, const glm::mat4& p_transform = glm::mat4(1))
+	void Renderer::Submit(const Ref<Shader> p_shader, const Ref<VertexArray>& p_vertexArray, const glm::mat4& p_transform = glm::mat4(1))
 	{
 		p_shader->Bind();
 		p_shader->SetMat4("u_viewProjection", _sceneData->viewProjectionMatrix);

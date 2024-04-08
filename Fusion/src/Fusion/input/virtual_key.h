@@ -24,6 +24,6 @@ namespace Fusion {
 	private:
 		std::string _name;
 
-		mutable std::shared_ptr<KeyDetails> _keydetails;
+		mutable Ref<KeyDetails> _keydetails;
 	};
 }

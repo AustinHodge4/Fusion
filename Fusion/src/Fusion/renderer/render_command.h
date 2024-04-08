@@ -17,7 +17,7 @@ namespace Fusion {
 			_rendererAPI->Clear();
 		}
 
-		inline static void DrawIndexed(const std::shared_ptr<VertexArray>& p_vertexArray)
+		inline static void DrawIndexed(const Ref<VertexArray>& p_vertexArray)
 		{
 			_rendererAPI->DrawIndexed(p_vertexArray);
 		}

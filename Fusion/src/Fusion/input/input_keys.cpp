@@ -145,7 +145,7 @@ namespace Fusion {
 	const VirtualKey Key::Exclamation("Exclamation");
 	
 	bool Key::_initialized = false;
-	std::map<VirtualKey, std::shared_ptr<KeyDetails>> Key::_inputkeys;
+	std::map<VirtualKey, Ref<KeyDetails>> Key::_inputkeys;
 
 	void Key::Initialize()
 	{
@@ -297,11 +297,11 @@ namespace Fusion {
 	void Key::AddKey(KeyDetails& p_keydetails)
 	{
 		VirtualKey& key = p_keydetails.GetKey();
-		key._keydetails = std::make_shared<KeyDetails>(p_keydetails);
+		key._keydetails = CreateRef<KeyDetails>(p_keydetails);
 		_inputkeys.insert({ key, key._keydetails});
 	}
 
-	const std::shared_ptr<KeyDetails>& Key::GetKeyDetails(const VirtualKey& p_key)
+	const Ref<KeyDetails>& Key::GetKeyDetails(const VirtualKey& p_key)
 	{
 		auto entry = _inputkeys.find(p_key);
 		if (entry == _inputkeys.end())
