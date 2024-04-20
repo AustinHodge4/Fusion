@@ -154,10 +154,9 @@ namespace Fusion {
 		static void AddKey(KeyDetails& p_keydetails);
 
 		static const Ref<KeyDetails> GetKeyDetails(const VirtualKey& p_key);
-
 	private:
 		static bool _initialized;
 
-		static std::vector<VirtualKey> _inputkeys;
+		static std::vector<Ref<KeyDetails>> _inputkeys;
 	};
 }

@@ -18,7 +18,7 @@ namespace Fusion {
 
 	int Input::GetCodesFromKey(const VirtualKey& p_key)
 	{
-		auto entry = std::find_if(_keymap.begin(), _keymap.end(), [p_key](auto& pair) { return pair.second == p_key; });
+		auto entry = std::find_if(_keymap.begin(), _keymap.end(), [&](auto& pair) { return pair.second == p_key; });
 		if (entry == _keymap.end()) {
 			FE_CORE_ERROR("Key does not have a keycode!! {0}", p_key.GetName());
 			return -1;
@@ -45,7 +45,7 @@ namespace Fusion {
 				FE_CORE_ERROR("Platform key is not valid!");
 				continue;
 			}
-			_keymap.insert({ keycodes[i], key });
+			_keymap.insert({ keycodes[i], key.GetDetails().get()->GetKey()});
 		}
 	}
 

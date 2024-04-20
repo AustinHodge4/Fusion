@@ -14,6 +14,7 @@
 #include "fusion/renderer/renderer.h"
 #include "fusion/renderer/render_command.h"
 #include "fusion/renderer/shader.h"
+#include "fusion/renderer/texture.h"
 #include "fusion/renderer/buffer.h"
 #include "fusion/renderer/vertex_array.h"
 

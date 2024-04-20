@@ -124,7 +124,7 @@ namespace Fusion {
 		virtual void SetLayout(const BufferLayout& p_layout) = 0;
 		virtual const BufferLayout& GetLayout() const = 0;
 
-		static VertexBuffer* Create(float* p_vertices, uint32_t p_size);
+		static Ref<VertexBuffer> Create(float* p_vertices, uint32_t p_size);
 	};
 
 	class IndexBuffer 
@@ -138,6 +138,6 @@ namespace Fusion {
 
 		virtual uint32_t GetBuffer() const = 0;
 
-		static IndexBuffer* Create(uint32_t* p_indices, uint32_t p_size);
+		static Ref<IndexBuffer> Create(uint32_t* p_indices, uint32_t p_size);
 	};
 }

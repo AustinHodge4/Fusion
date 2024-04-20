@@ -1,6 +1,7 @@
 #include "fepch.h"
 #include "application.h"
 
+#include "fusion/renderer/renderer.h"
 #include "fusion/input/input.h"
 
 #include <GLFW/glfw3.h>
@@ -14,6 +15,8 @@ namespace Fusion {
 
 		_window = std::unique_ptr<Window>(Window::Create());
 		_window->SetEventCallback(FE_BIND_EVENT_FN(Application::OnEvent));
+
+		Renderer::Init();
 
 		_imguiLayer = new ImGUILayer();
 		PushOverlay(_imguiLayer);

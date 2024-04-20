@@ -42,7 +42,7 @@ class RenderLayer : public Fusion::Layer
 public:
 	RenderLayer() : Layer("Render"), _camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
-		_vertexArray.reset(Fusion::VertexArray::Create());
+		_vertexArray = Fusion::VertexArray::Create();
 
 		float vertices[3 * 6] = {
 			-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f,
@@ -50,11 +50,11 @@ public:
 			0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f,
 		};
 		Fusion::Ref<Fusion::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Fusion::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Fusion::VertexBuffer::Create(vertices, sizeof(vertices));
 		{
 			Fusion::BufferLayout layout = {
-				{ Fusion::ShaderDataType::Float3, "inPosition"},
-				{ Fusion::ShaderDataType::Float3, "inColor"}
+				{ Fusion::ShaderDataType::Float3, "a_position"},
+				{ Fusion::ShaderDataType::Float3, "a_color"}
 			};
 
 			vertexBuffer->SetLayout(layout);
@@ -63,24 +63,52 @@ public:
 
 		uint32_t indices[3] = { 0, 1, 2 };
 		Fusion::Ref<Fusion::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Fusion::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		indexBuffer = Fusion::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		_vertexArray->SetIndexBuffer(indexBuffer);
 
 		_vertexArray->Unbind();
 
+
+		_squareVertexArray = Fusion::VertexArray::Create();
+
+		float squareVertices[4 * 5] = {
+			-0.5f, 0.5f, 0.0f, 0.0f, 1.0f,
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			0.5f, 0.5f, 0.0f, 1.0f, 1.0f,
+		};
+		Fusion::Ref<Fusion::VertexBuffer> squareVertexBuffer;
+		squareVertexBuffer = Fusion::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
+		{
+			Fusion::BufferLayout layout = {
+				{ Fusion::ShaderDataType::Float3, "a_position"},
+				{ Fusion::ShaderDataType::Float2, "a_uv"}
+			};
+
+			squareVertexBuffer->SetLayout(layout);
+		}
+		_squareVertexArray->AddVertexBuffer(squareVertexBuffer);
+
+		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		Fusion::Ref<Fusion::IndexBuffer> squareIndexBuffer;
+		squareIndexBuffer = Fusion::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
+		_squareVertexArray->SetIndexBuffer(squareIndexBuffer);
+
+		_squareVertexArray->Unbind();
+
 		const std::string vertexShader = R"(
 			#version 460 core
-			layout(location = 0) in vec3 inPosition;
-			layout(location = 1) in vec3 inColor;
+			layout(location = 0) in vec3 a_position;
+			layout(location = 1) in vec3 a_color;
 
-			uniform mat4 u_viewProjection;
+			uniform mat4 u_view_projection;
 			uniform mat4 u_transform;
 			
-			out vec3 o_color;
+			out vec3 v_color;
 
 			void main() {
-				o_color = inColor;
-				gl_Position = u_viewProjection * u_transform * vec4(inPosition, 1.0);
+				v_color = a_color;
+				gl_Position = u_view_projection * u_transform * vec4(a_position, 1.0);
 			}
 		)";
 
@@ -88,7 +116,7 @@ public:
 			#version 460 core
 			layout(location = 0) out vec4 color;
 
-			in vec3 o_color;
+			in vec3 v_color;
 			uniform vec4 u_color;
 
 			void main() {
@@ -96,14 +124,48 @@ public:
 			}
 		)";
 
-		_shader.reset(Fusion::Shader::Create("base", vertexShader, fragmentShader));
-		
+		_shader = Fusion::Shader::Create("base", vertexShader, fragmentShader);
+
+		const std::string squareVertexShader = R"(
+			#version 460 core
+			layout(location = 0) in vec3 a_position;
+			layout(location = 1) in vec2 a_uv;
+
+			uniform mat4 u_view_projection;
+			uniform mat4 u_transform;
+			
+			out vec2 v_uv;
+
+			void main() {
+				v_uv = a_uv;
+				gl_Position = u_view_projection * u_transform * vec4(a_position, 1.0);
+			}
+		)";
+
+		const std::string squareFragmentShader = R"(
+			#version 460 core
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_uv;
+			uniform sampler2D u_texture;
+
+			void main() {
+				color = texture(u_texture, v_uv);
+			}
+		)";
+		_squareShader = Fusion::Shader::Create("texture", squareVertexShader, squareFragmentShader);
+
+		_texture = Fusion::Texture2D::Create("assets/models/cottage/textures/cottage_color.png");
+		_squareShader->Bind();
+		_squareShader->SetInt("u_texture", 0);
 	}
 
 	~RenderLayer() 
 	{
 		_vertexArray->Unbind();
+		_squareVertexArray->Unbind();
 		_shader->Unbind();
+		_squareShader->Unbind();
 	}
 
 	void OnUpdate(Fusion::Timestep p_timestep) override
@@ -144,6 +206,9 @@ public:
 					Fusion::Renderer::Submit(_shader, _vertexArray, transform);
 				}
 			}
+
+			_texture->Bind();
+			Fusion::Renderer::Submit(_squareShader, _squareVertexArray, glm::scale(glm::mat4(1.0f), glm::vec3(1.5f)));
 		}
 		Fusion::Renderer::EndScene();
 	}
@@ -162,7 +227,12 @@ public:
 
 private:
 	Fusion::Ref<Fusion::VertexArray> _vertexArray;
+	Fusion::Ref<Fusion::VertexArray> _squareVertexArray;
+
 	Fusion::Ref<Fusion::Shader> _shader;
+	Fusion::Ref<Fusion::Shader> _squareShader;
+	Fusion::Ref<Fusion::Texture2D> _texture;
+
 	Fusion::OrthographicCamera _camera;
 
 	float _rotation = 0.0f;

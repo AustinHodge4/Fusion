@@ -10,6 +10,8 @@ namespace Fusion {
 	class Renderer 
 	{
 	public:
+		static void Init();
+
 		static void BeginScene(OrthographicCamera& p_camera);
 		static void EndScene();
 

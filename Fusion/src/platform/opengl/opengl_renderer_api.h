@@ -6,6 +6,8 @@ namespace Fusion {
 
 	class OpenGLRendererAPI : public RendererAPI
 	{
+		virtual void Init() override;
+
 		virtual void SetClearColor(const glm::vec4& p_coloe) override;
 		virtual void Clear() override;
 

@@ -7,26 +7,26 @@
 
 namespace Fusion {
 
-	Shader* Shader::Create(const std::string& p_name, const std::string& p_vertexSource, const std::string& p_fragmentSource)
+	Ref<Shader> Shader::Create(const std::string& p_name, const std::string& p_vertexSource, const std::string& p_fragmentSource)
 	{
 		switch (Renderer::GetAPI())
 		{
 			case RendererAPI::API::None: FE_CORE_ASSERT(false, "Renderer API None not supported!"); return nullptr;
 			case RendererAPI::API::Vulkan: FE_CORE_ASSERT(false, "Renderer API Vulkan not supported!"); return nullptr;
-			case RendererAPI::API::OpenGL: return new OpenGLShader(p_name, p_vertexSource, p_fragmentSource);
+			case RendererAPI::API::OpenGL: return CreateRef<OpenGLShader>(p_name, p_vertexSource, p_fragmentSource);
 		}
 
 		FE_CORE_ASSERT(false, "Unknown Renderer API not supported!");
 		return nullptr;
 	}
 
-	void ShaderLibrary::Add(const std::string& p_name, Shader& p_shader)
+	void ShaderLibrary::Add(const std::string& p_name, Ref<Shader>& p_shader)
 	{
-		FE_CORE_ASSERT(!Exists(p_shader.GetName()), "Shader already exists!");
-		_library[p_name] = &p_shader;
+		FE_CORE_ASSERT(!Exists(p_shader->GetName()), "Shader already exists!");
+		_library[p_name] = p_shader;
 	}
 
-	Shader* ShaderLibrary::GetShader(const std::string& p_name) const
+	Ref<Shader> ShaderLibrary::GetShader(const std::string& p_name) const
 	{
 		FE_CORE_ASSERT(Exists(p_name), "Shader does not exists!");
 		return _library.at(p_name);

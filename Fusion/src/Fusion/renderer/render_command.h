@@ -7,6 +7,11 @@ namespace Fusion {
 	class RenderCommand 
 	{
 	public:
+		inline static void Init()
+		{
+			_rendererAPI->Init();
+		}
+
 		inline static void SetClearColor(const glm::vec4& p_color)
 		{
 			_rendererAPI->SetClearColor(p_color);

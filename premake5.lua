@@ -16,6 +16,8 @@ IncludeDir["glfw"] = "Fusion/vendor/glfw/include"
 IncludeDir["glad"] = "Fusion/vendor/glad/include"
 IncludeDir["imgui"] = "Fusion/vendor/imgui"
 IncludeDir["glm"] = "Fusion/vendor/glm"
+IncludeDir["spdlog"] = "Fusion/vendor/spdlog/include"
+IncludeDir["stb_image"] = "Fusion/vendor/stb_image"
 
 group "Dependencies"
     include "Fusion/vendor/glfw"
@@ -40,17 +42,20 @@ project "Fusion"
     files 
     {
         "%{prj.name}/src/**.h",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/vendor/stb_image/**.h",
+        "%{prj.name}/vendor/stb_image/**.cpp"
     }
 
     includedirs
     {
         "%{prj.name}/src",
-        "%{prj.name}/vendor/spdlog/include",
+        "%{IncludeDir.spdlog}",
         "%{IncludeDir.glfw}",
         "%{IncludeDir.glad}",
         "%{IncludeDir.imgui}",
-        "%{IncludeDir.glm}"
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.stb_image}",
     }
 
     links
@@ -120,8 +125,8 @@ project "Sandbox"
 
     includedirs
     {
-        "Fusion/vendor/spdlog/include",
         "Fusion/src",
+        "%{IncludeDir.spdlog}",
         "%{IncludeDir.imgui}",
         "%{IncludeDir.glm}"
     }
